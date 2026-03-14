@@ -1,0 +1,127 @@
+﻿@model DoAnCoSo.Models.SuKien
+@{
+    ViewData["Title"] = "Chỉnh sửa sự kiện";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h2 class="card-title text-primary mb-1">
+                                <i class="fas fa-edit me-2"></i>@ViewData["Title"]
+                            </h2>
+                            <p class="text-muted mb-0">Cập nhật thông tin sự kiện</p>
+                        </div>
+                        <span class="badge bg-primary">@Model.MaSuKien</span>
+                    </div>
+
+                    <form asp-action="Update" method="post">
+                        <input type="hidden" asp-for="MaSuKien" />
+                        
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input asp-for="TenSuKien" class="form-control" placeholder="Tên sự kiện" />
+                                    <label asp-for="TenSuKien">Tên sự kiện</label>
+                                    <span asp-validation-for="TenSuKien" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="NgayToChuc" class="form-control" type="date" />
+                                    <label asp-for="NgayToChuc">Ngày tổ chức</label>
+                                    <span asp-validation-for="NgayToChuc" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="DiaDiem" class="form-control" placeholder="Địa điểm" />
+                                    <label asp-for="DiaDiem">Địa điểm</label>
+                                    <span asp-validation-for="DiaDiem" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea asp-for="NoiDung" class="form-control" placeholder="Nội dung" 
+                                              style="height: 120px"></textarea>
+                                    <label asp-for="NoiDung">Nội dung</label>
+                                    <span asp-validation-for="NoiDung" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select asp-for="MaQTV" class="form-select" asp-items="ViewBag.QuanTriViens">
+                                        <option value="">-- Chọn quản trị viên --</option>
+                                    </select>
+                                    <label asp-for="MaQTV">Quản trị viên phụ trách</label>
+                                    <span asp-validation-for="MaQTV" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <hr class="my-4">
+                                <div class="text-end">
+                                    <a asp-action="Index" class="btn btn-outline-secondary me-2">
+                                        <i class="fas fa-arrow-left me-2"></i>Trở về
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-2"></i>Lưu thay đổi
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .form-floating > .form-control,
+    .form-floating > .form-select {
+        height: calc(3.5rem + 2px);
+        line-height: 1.25;
+    }
+
+    .form-floating > label {
+        padding: 1rem 0.75rem;
+    }
+
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label,
+    .form-floating > .form-select ~ label {
+        transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+    }
+
+    .badge {
+        font-size: 0.9rem;
+        padding: 0.5em 1em;
+        border-radius: 6px;
+    }
+
+    .btn {
+        padding: 0.5rem 1.5rem;
+        border-radius: 6px;
+    }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

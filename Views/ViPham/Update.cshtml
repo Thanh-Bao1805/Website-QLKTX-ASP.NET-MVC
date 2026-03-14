@@ -1,0 +1,92 @@
+﻿@model DoAnCoSo.Models.ViPham
+@{
+    ViewData["Title"] = "Cập nhật vi phạm";
+}
+
+<div class="container-fluid px-4">
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-edit me-1"></i>
+                    @ViewData["Title"]
+                </div>
+                <a asp-action="Index" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-1"></i>Quay lại
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <form asp-action="Update" method="post" class="needs-validation" novalidate>
+                <input type="hidden" asp-for="MaViPham" />
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="MaViPham" class="form-control" disabled />
+                            <label asp-for="MaViPham">Mã vi phạm</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="NgayViPham" class="form-control" type="date" />
+                            <label asp-for="NgayViPham">Ngày vi phạm</label>
+                            <span asp-validation-for="NgayViPham" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <select asp-for="MaSV" asp-items="ViewBag.SinhViens" class="form-select">
+                                <option value="">-- Chọn sinh viên --</option>
+                            </select>
+                            <label for="MaSV">Sinh viên</label>
+                            <span asp-validation-for="MaSV" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <select asp-for="MaNoiQuy" asp-items="ViewBag.NoiQuys" class="form-select">
+                                <option value="">-- Chọn nội quy --</option>
+                            </select>
+                            <label for="MaNoiQuy">Nội quy vi phạm</label>
+                            <span asp-validation-for="MaNoiQuy" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i>Lưu thay đổi
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">
+                        <i class="fas fa-times me-1"></i>Hủy
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Enable form validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+}

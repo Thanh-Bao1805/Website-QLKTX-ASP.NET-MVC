@@ -1,0 +1,197 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model DoAnCoSo.Models.DangKyO
+
+@{
+    ViewData["Title"] = "Xác nhận xóa đăng ký ở";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h2 class="mb-0">
+                <i class="fas fa-exclamation-triangle"></i> @ViewData["Title"]
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong>Cảnh báo:</strong> Bạn có chắc chắn muốn xóa đăng ký này không? Hành động này không thể hoàn tác.
+            </div>
+
+            <div class="row">
+                <!-- Thông tin sinh viên -->
+                <div class="col-md-6">
+                    <div class="card mb-3 h-100 border-0 shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">
+                                <i class="fas fa-user text-danger"></i> Thông tin sinh viên
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4">Mã đăng ký</dt>
+                                <dd class="col-sm-8">
+                                    <span class="badge bg-danger">@Model.MaDK</span>
+                                </dd>
+
+                                <dt class="col-sm-4">MSSV</dt>
+                                <dd class="col-sm-8">@Model.MSSV</dd>
+
+                                <dt class="col-sm-4">Họ tên</dt>
+                                <dd class="col-sm-8 fw-bold">@Model.HoTen</dd>
+
+                                <dt class="col-sm-4">Ngày sinh</dt>
+                                <dd class="col-sm-8">@Model.NgaySinh.ToString("dd/MM/yyyy")</dd>
+
+                                <dt class="col-sm-4">Giới tính</dt>
+                                <dd class="col-sm-8">
+                                    @if (Model.GioiTinh == "Nam")
+                                    {
+                                        <i class="fas fa-mars text-primary me-1"></i>
+                                    }
+                                    else if (Model.GioiTinh == "Nữ")
+                                    {
+                                        <i class="fas fa-venus text-danger me-1"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-genderless text-secondary me-1"></i>
+                                    }
+                                    @Model.GioiTinh
+                                </dd>
+
+                                <dt class="col-sm-4">Số điện thoại</dt>
+                                <dd class="col-sm-8">
+                                    <i class="fas fa-phone text-success me-1"></i>@Model.SDT
+                                </dd>
+
+                                <dt class="col-sm-4">Email</dt>
+                                <dd class="col-sm-8">
+                                    <i class="fas fa-envelope text-warning me-1"></i>@Model.Email
+                                </dd>
+
+                                <dt class="col-sm-4">CCCD</dt>
+                                <dd class="col-sm-8">
+                                    <i class="fas fa-id-card text-info me-1"></i>@Model.CCCD
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin học tập và phòng -->
+                <div class="col-md-6">
+                    <div class="card mb-3 border-0 shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">
+                                <i class="fas fa-graduation-cap text-danger"></i> Thông tin học tập
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4">Lớp</dt>
+                                <dd class="col-sm-8">@Model.Lop</dd>
+
+                                <dt class="col-sm-4">Khoa</dt>
+                                <dd class="col-sm-8">@Model.Khoa</dd>
+
+                                <dt class="col-sm-4">Địa chỉ</dt>
+                                <dd class="col-sm-8">
+                                    <i class="fas fa-map-marker-alt text-danger me-1"></i>@Model.DiaChiThuongTru
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">
+                                <i class="fas fa-home text-danger"></i> Thông tin đăng ký phòng
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row mb-0">
+                                                                <dt class="col-sm-4">Mã phòng</dt>                                <dd class="col-sm-8">                                    @if (Model.MaPhong != null)                                    {                                        <span class="badge bg-info">@Model.MaPhong</span>                                    }                                    else                                    {                                        <span class="badge bg-secondary">Chưa có phòng</span>                                    }                                </dd>
+
+                                <dt class="col-sm-4">Ngày bắt đầu</dt>
+                                <dd class="col-sm-8">
+                                    <i class="fas fa-calendar-alt text-primary me-1"></i>
+                                    @Model.NgayBatDauO.ToString("dd/MM/yyyy")
+                                </dd>
+
+                                <dt class="col-sm-4">Ngày kết thúc</dt>
+                                <dd class="col-sm-8">
+                                    <i class="fas fa-calendar-check text-danger me-1"></i>
+                                    @Model.NgayKetThucO.ToString("dd/MM/yyyy")
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <form asp-action="Delete" method="post" class="d-inline">
+                    <input type="hidden" asp-for="MaDK" />
+                    <button type="submit" class="btn btn-danger btn-lg px-4" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">
+                        <i class="fas fa-trash me-2"></i>Xác nhận xóa
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary btn-lg px-4 ms-2">
+                        <i class="fas fa-arrow-left me-2"></i>Quay lại
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    dt {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    dd {
+        color: #343a40;
+        margin-bottom: 0.75rem;
+    }
+
+    .card {
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    .card-header {
+        border-bottom: none;
+        padding: 1rem;
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .badge {
+        font-weight: 500;
+        padding: 0.5em 0.75em;
+    }
+
+    .btn-lg {
+        border-radius: 0.5rem;
+    }
+
+    .card-header h5 {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .alert {
+        border-radius: 0.5rem;
+        border: none;
+    }
+
+    .alert i {
+        font-size: 1.1rem;
+    }
+</style>

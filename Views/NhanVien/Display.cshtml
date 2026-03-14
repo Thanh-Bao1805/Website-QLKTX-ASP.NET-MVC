@@ -1,0 +1,114 @@
+﻿@model DoAnCoSo.Models.NhanVien
+
+@{
+    ViewData["Title"] = "Thông tin nhân viên";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-user-tie me-2"></i>@ViewData["Title"]
+                </h5>
+                <div>
+                    <a asp-action="Update" asp-route-id="@Model.MaNV" class="btn btn-warning">
+                        <i class="fas fa-edit me-2"></i>Cập nhật
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">
+                        <i class="fas fa-arrow-left me-2"></i>Quay lại
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="staff-profile text-center">
+                        <div class="profile-image mb-4">
+                            <i class="fas fa-user-circle fa-6x text-primary"></i>
+                        </div>
+                        <h4 class="staff-name mb-3">@Model.HoTen</h4>
+                        <div class="staff-id mb-3">
+                            <span class="text-muted">Mã nhân viên:</span>
+                            <span class="fw-bold">@Model.MaNV</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="staff-details">
+                        <div class="info-group mb-4">
+                            <h5 class="info-title mb-3">Thông tin cá nhân</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted mb-1">Số điện thoại</label>
+                                        <p class="mb-0">@Model.SDT</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <label class="text-muted mb-1">Chức vụ</label>
+                                        <p class="mb-0">@Model.chucVu?.TenChucVu</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .staff-profile {
+        background-color: #f8f9fa;
+        padding: 2rem;
+        border-radius: 1rem;
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+        background: rgba(var(--bs-primary-rgb), 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .staff-name {
+        color: var(--bs-dark);
+        font-weight: 600;
+    }
+
+    .staff-id {
+        padding: 0.5rem 1rem;
+        background-color: var(--bs-white);
+        border-radius: 0.5rem;
+        display: inline-block;
+    }
+
+    .info-title {
+        color: var(--bs-gray-700);
+        font-weight: 600;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--bs-gray-200);
+    }
+
+    .info-item {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .info-item label {
+        font-size: 0.875rem;
+    }
+
+    .info-item p {
+        font-weight: 500;
+    }
+</style>

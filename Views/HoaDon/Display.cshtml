@@ -1,0 +1,204 @@
+﻿@model DoAnCoSo.Models.HoaDon
+@{
+    ViewData["Title"] = "Chi tiết hóa đơn";
+    string loaiHoaDon = Model.LoaiChiPhi == "HoaDonDienNuoc" ? "Hóa đơn điện nước" : 
+                        Model.LoaiChiPhi == "HoaDonDichVu" ? "Hóa đơn dịch vụ" : Model.LoaiChiPhi;
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">@ViewData["Title"]</h5>
+                <div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <a asp-action="Update" asp-route-id="@Model.MaHoaDon" class="btn btn-warning">
+                        <i class="fas fa-edit me-2"></i>Sửa
+                    </a>
+                    }
+                    @if (Model.TrangThai != "Đã thanh toán")
+                    {
+                        <a asp-action="Pay" asp-route-id="@Model.MaHoaDon" class="btn btn-success ms-2">
+                            <i class="fas fa-money-bill-wave me-2"></i>Thanh Toán
+                        </a>
+                    }
+                    <a asp-action="ExportPdf" asp-route-id="@Model.MaHoaDon" class="btn btn-info ms-2">
+                        <i class="fas fa-file-pdf me-2"></i>Xuất PDF
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">
+                        <i class="fas fa-arrow-left me-2"></i>Quay lại
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row g-4">
+                <!-- Thông tin cơ bản -->
+                <div class="col-12">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <h6 class="card-title mb-3">
+                                <i class="fas fa-info-circle me-2"></i>Thông tin cơ bản
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="detail-group">
+                                        <label class="text-muted mb-1">Mã hóa đơn</label>
+                                        <p class="h5">@Model.MaHoaDon</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="detail-group">
+                                        <label class="text-muted mb-1">Ngày lập</label>
+                                        <p class="h5">@Model.NgayLap.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="detail-group">
+                                        <label class="text-muted mb-1">Loại hóa đơn</label>
+                                        <p class="h5">
+                                            @if (Model.LoaiChiPhi == "HoaDonDienNuoc")
+                                            {
+                                                <span class="badge bg-info">@loaiHoaDon</span>
+                                            }
+                                            else if (Model.LoaiChiPhi == "HoaDonDichVu")
+                                            {
+                                                <span class="badge bg-success">@loaiHoaDon</span>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="detail-group">
+                                        <label class="text-muted mb-1">Sinh viên</label>
+                                        <p class="h5">@Model.SinhVien?.HoTen</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin thanh toán -->
+                <div class="col-12">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <h6 class="card-title mb-3">
+                                <i class="fas fa-money-bill me-2"></i>Thông tin thanh toán
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                   
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="detail-group">
+                                        <label class="text-muted mb-1">Tổng tiền</label>
+                                        <p class="h5 text-primary">@Model.TongTien.ToString("N0") VNĐ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin chi tiết -->
+                @if (Model.LoaiChiPhi == "HoaDonDienNuoc" && Model.DienNuoc != null)
+                {
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-bolt me-2"></i>Thông tin điện nước
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="detail-group">
+                                            <label class="text-muted mb-1">Mã điện nước</label>
+                                            <p class="h5">@Model.MaDN</p>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label class="text-muted mb-1">Số điện</label>
+                                            <p class="h5">@Model.DienNuoc.SoDien kWh</p>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label class="text-muted mb-1">Đơn giá điện</label>
+                                            <p class="h5">@Model.DienNuoc.DonGiaDien.ToString("N0") VNĐ/kWh</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="detail-group">
+                                            <label class="text-muted mb-1">Ngày ghi</label>
+                                            <p class="h5">@Model.DienNuoc.NgayGhi.ToString("dd/MM/yyyy")</p>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label class="text-muted mb-1">Số nước</label>
+                                            <p class="h5">@Model.DienNuoc.SoNuoc m³</p>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label class="text-muted mb-1">Đơn giá nước</label>
+                                            <p class="h5">@Model.DienNuoc.DonGiaNuoc.ToString("N0") VNĐ/m³</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (Model.LoaiChiPhi == "HoaDonDichVu" && Model.DangKyDichVu != null)
+                {
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-concierge-bell me-2"></i>Thông tin dịch vụ
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="detail-group">
+                                            <label class="text-muted mb-1">Mã đăng ký</label>
+                                            <p class="h5">@Model.MaDKDV</p>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label class="text-muted mb-1">Tên dịch vụ</label>
+                                            <p class="h5">@Model.DangKyDichVu.DichVu?.TenDichVu</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="detail-group">
+                                            <label class="text-muted mb-1">Ngày đăng ký</label>
+                                            <p class="h5">@Model.DangKyDichVu.NgayDangKy.ToString("dd/MM/yyyy")</p>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label class="text-muted mb-1">Số lượng đăng ký</label>
+                                            <p class="h5">@Model.DangKyDichVu.SoLuong</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .detail-group label {
+            font-size: 0.875rem;
+        }
+        .detail-group p {
+            margin-bottom: 0;
+        }
+        .badge {
+            font-weight: 500;
+            padding: 0.5em 0.8em;
+            border-radius: 6px;
+        }
+        .card-title {
+            font-weight: 600;
+        }
+    </style>
+}

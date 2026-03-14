@@ -1,0 +1,154 @@
+﻿@model IEnumerable<DoAnCoSo.Models.SinhVien>
+
+@{
+    ViewData["Title"] = "Quản lý sinh viên";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-0">
+                        <i class="fas fa-user-graduate me-2"></i>@ViewData["Title"]
+                    </h5>
+                </div>
+                <div>
+                    <a asp-action="Add" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Thêm sinh viên mới
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover" id="sinhVienTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã SV</th>
+                            <th>Họ Tên</th>
+                            <th>CCCD</th>
+                            <th>Thông tin cá nhân</th>
+                            <th>Thông tin học tập</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var sinhVien in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="fw-medium">@sinhVien.MaSV</span>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-circle bg-primary text-white me-2">
+                                            @(sinhVien.HoTen.First().ToString().ToUpper())
+                                        </div>
+                                        <div>
+                                            <span class="fw-medium">@sinhVien.HoTen</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@sinhVien.CCCD</td>
+                                <td>
+                                    <div>
+                                        <small class="text-muted">
+                                            <i class="fas fa-birthday-cake me-1"></i>@(sinhVien.NgaySinh != default(DateTime) ? sinhVien.NgaySinh.ToString("dd/MM/yyyy") : "Chưa cập nhật")
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <small class="text-muted">
+                                            <i class="fas fa-venus-mars me-1"></i>@sinhVien.GioiTinh
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <small class="text-muted">
+                                            <i class="fas fa-phone me-1"></i>@sinhVien.SDT
+                                        </small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <small class="text-muted">
+                                            <i class="fas fa-graduation-cap me-1"></i>@sinhVien.Khoa
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <small class="text-muted">
+                                            <i class="fas fa-users me-1"></i>@sinhVien.Lop
+                                        </small>
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (sinhVien.NgayNhapKTX != default(DateTime))
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check-circle me-1"></i>Đang ở KTX
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-times-circle me-1"></i>Chưa ở KTX
+                                        </span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a asp-action="Display" asp-route-id="@sinhVien.MaSV" 
+                                           class="btn btn-sm btn-info text-white" title="Xem chi tiết">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Update" asp-route-id="@sinhVien.MaSV" 
+                                           class="btn btn-sm btn-warning" title="Cập nhật">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@sinhVien.MaSV" 
+                                           class="btn btn-sm btn-danger" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .avatar-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .table > :not(caption) > * > * {
+            padding: 1rem 0.75rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#sinhVienTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/vi.json'
+                },
+                order: [[1, 'asc']],
+                pageLength: 10,
+                responsive: true
+            });
+        });
+    </script>
+}

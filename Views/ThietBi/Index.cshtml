@@ -1,0 +1,137 @@
+﻿@model IEnumerable<DoAnCoSo.Models.ThietBi>
+
+@{
+    ViewData["Title"] = "Danh sách thiết bị";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+            <h5 class="mb-0">@ViewData["Title"]</h5>
+            <a class="btn btn-primary" asp-action="Add">
+                <i class="fas fa-plus me-2"></i>Thêm thiết bị
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm thiết bị...">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <select id="filterType" class="form-select">
+                        <option value="">Tất cả loại thiết bị</option>
+                        @if (Model != null && Model.Any())
+                        {
+                            var types = Model.Select(t => t.Loai).Distinct();
+                            foreach (var type in types)
+                            {
+                                <option value="@type">@type</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover" id="deviceTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã thiết bị</th>
+                            <th>Tên thiết bị</th>
+                            <th>Loại</th>
+                            <th>Mô tả</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var thietBi in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="fw-medium">@thietBi.MaThietBi</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-tools text-primary me-2"></i>
+                                            <span>@thietBi.TenThietBi</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info">@thietBi.Loai</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted small">@(string.IsNullOrEmpty(thietBi.MoTa) ? "Không có mô tả" : thietBi.MoTa)</span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-outline-info btn-sm" asp-action="Display" asp-route-id="@thietBi.MaThietBi" data-bs-toggle="tooltip" title="Chi tiết">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a class="btn btn-outline-warning btn-sm" asp-action="Update" asp-route-id="@thietBi.MaThietBi" data-bs-toggle="tooltip" title="Sửa">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@thietBi.MaThietBi" data-bs-toggle="tooltip" title="Xóa">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-4">
+                                    <div class="text-muted">
+                                        <i class="fas fa-tools fa-2x mb-3"></i>
+                                        <p class="mb-0">Không có thiết bị nào.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+
+            // Search functionality
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#deviceTable tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            // Type filter
+            $("#filterType").change(function() {
+                var value = $(this).val();
+                $("#deviceTable tbody tr").show();
+                if(value) {
+                    $("#deviceTable tbody tr").each(function() {
+                        if($(this).find("td:nth-child(3) .badge").text() !== value) {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

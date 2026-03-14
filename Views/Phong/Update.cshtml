@@ -1,0 +1,210 @@
+﻿@model DoAnCoSo.Models.Phong
+
+@{
+    ViewData["Title"] = "Cập Nhật Phòng " + Model.MaPhong;
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+            <h2 class="card-title mb-0">
+                <i class="fas fa-edit me-2"></i>@ViewData["Title"]
+            </h2>
+            <a asp-action="Index" class="btn btn-light">
+                <i class="fas fa-arrow-left me-2"></i>Quay Lại
+            </a>
+        </div>
+        <div class="card-body">
+            <form asp-action="Update" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <input type="hidden" asp-for="MaPhong" />
+                <input type="hidden" asp-for="ImageUrl" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">
+                                    <i class="fas fa-info-circle me-2"></i>Thông Tin Cơ Bản
+                                </h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        <i class="fas fa-hashtag me-2"></i>Mã Phòng
+                                    </label>
+                                    <input class="form-control" value="@Model.MaPhong" disabled />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="LoaiPhong" class="form-label">
+                                        <i class="fas fa-venus-mars me-2"></i>Loại Phòng
+                                    </label>
+                                    <select asp-for="LoaiPhong" class="form-select" required>
+                                <option value="">-- Chọn loại phòng --</option>   
+                                <option>Phòng 2 người</option>
+                                <option>Phòng 4 người</option>
+                                <option>Phòng 6 người</option>
+                                <option>Phòng 8 người</option>
+                            </select>
+                                    <span asp-validation-for="LoaiPhong" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="GioiTinhPhong" class="form-label">
+                                        <i class="fas fa-restroom me-2"></i>Giới Tính Phòng
+                                    </label>
+                                    <select asp-for="GioiTinhPhong" class="form-select" required>
+                                        <option value="">-- Chọn giới tính --</option>
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                        <option value="Khác">Khác</option>
+                                    </select>
+                                    <span asp-validation-for="GioiTinhPhong" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="MaToaID" class="form-label">
+                                        <i class="fas fa-building me-2"></i>Tòa
+                                    </label>
+                                    <select asp-for="MaToaID" class="form-select" asp-items="ViewBag.ToaList" required>
+                                        <option value="">-- Chọn tòa --</option>
+                                    </select>
+                                    <span asp-validation-for="MaToaID" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="TrangThai" class="form-label">
+                                        <i class="fas fa-circle me-2"></i>Trạng Thái
+                                    </label>
+                                    <select asp-for="TrangThai" class="form-select" required>
+                                        <option value="">-- Chọn trạng thái --</option>
+                                        <option value="Trống">Trống</option>
+                                        <option value="Đang sử dụng">Đang sử dụng</option>
+                                        <option value="Đang bảo trì">Đang bảo trì</option>
+                                    </select>
+                                    <span asp-validation-for="TrangThai" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">
+                                    <i class="fas fa-users me-2"></i>Thông Tin Sức Chứa
+                                </h5>
+
+                                <div class="mb-3">
+                                    <label asp-for="SoGiuong" class="form-label">
+                                        <i class="fas fa-bed me-2"></i>Số Giường
+                                    </label>
+                                    <input asp-for="SoGiuong" class="form-control" type="number" min="1" required />
+                                    <span asp-validation-for="SoGiuong" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="SoSinhVienToiDa" class="form-label">
+                                        <i class="fas fa-user-friends me-2"></i>Số Sinh Viên Tối Đa
+                                    </label>
+                                    <input asp-for="SoSinhVienToiDa" class="form-control" type="number" min="1" required />
+                                    <span asp-validation-for="SoSinhVienToiDa" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="SoSinhVienHienTai" class="form-label">
+                                        <i class="fas fa-user-check me-2"></i>Số Sinh Viên Hiện Tại
+                                    </label>
+                                    <input asp-for="SoSinhVienHienTai" class="form-control" type="number" min="0" required />
+                                    <span asp-validation-for="SoSinhVienHienTai" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">
+                                    <i class="fas fa-money-bill me-2"></i>Thông Tin Tài Chính
+                                </h5>
+
+                                <div class="mb-3">
+                                    <label asp-for="GiaPhong" class="form-label">
+                                        <i class="fas fa-money-bill-wave me-2"></i>Giá Phòng (VNĐ/tháng)
+                                    </label>
+                                    <input asp-for="GiaPhong" class="form-control" type="number" min="0" required />
+                                    <span asp-validation-for="GiaPhong" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="TienCoc" class="form-label">
+                                        <i class="fas fa-hand-holding-usd me-2"></i>Tiền Cọc (VNĐ)
+                                    </label>
+                                    <input asp-for="TienCoc" class="form-control" type="number" min="0" required />
+                                    <span asp-validation-for="TienCoc" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">
+                                    <i class="fas fa-image me-2"></i>Hình Ảnh Phòng
+                                </h5>
+                                <div class="mb-3">
+                                    <input type="file" name="imageFile" class="form-control" accept="image/*" />
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Chọn ảnh mới nếu muốn thay đổi
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                                    {
+                                        <div class="mt-2">
+                                            <img src="@Model.ImageUrl" alt="Hình ảnh hiện tại" class="img-thumbnail" style="max-height: 200px" />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times me-2"></i>Hủy
+                    </a>
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-save me-2"></i>Cập Nhật
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Enable Bootstrap form validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+
+        // Auto-update SoSinhVienToiDa when SoGiuong changes
+        document.getElementById('SoGiuong').addEventListener('change', function() {
+            document.getElementById('SoSinhVienToiDa').value = this.value;
+        });
+    </script>
+}

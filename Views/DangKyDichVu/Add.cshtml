@@ -1,0 +1,129 @@
+@model DoAnCoSo.Models.DangKyDichVu
+
+@{
+    ViewData["Title"] = "Đăng ký dịch vụ";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-concierge-bell text-primary me-2"></i>@ViewData["Title"]
+                </h5>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Quay lại
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <form asp-action="Add" method="post" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <!-- Thông tin đăng ký -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-info-circle me-2"></i>Thông tin đăng ký
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="MaDKDV" class="form-label">Mã đăng ký dịch vụ</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                                <input asp-for="MaDKDV" class="form-control" value="@ViewBag.MaDKDV" readonly />
+                            </div>
+                            <span asp-validation-for="MaDKDV" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="NgayDangKy" class="form-label">Ngày đăng ký</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                <input asp-for="NgayDangKy" class="form-control" type="date" required />
+                            </div>
+                            <span asp-validation-for="NgayDangKy" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin sinh viên -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-user-graduate me-2"></i>Thông tin sinh viên
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="MaSV" class="form-label">Sinh viên</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <select asp-for="MaSV" class="form-select" asp-items="ViewBag.SinhViens" required>
+                                    <option value="">-- Chọn sinh viên --</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="MaSV" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin dịch vụ -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h4 class="text-primary mb-3">
+                            <i class="fas fa-concierge-bell me-2"></i>Thông tin dịch vụ
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="MaDV" class="form-label">Dịch vụ</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-concierge-bell"></i></span>
+                                <select asp-for="MaDV" class="form-select" asp-items="ViewBag.DichVus" required>
+                                    <option value="">-- Chọn dịch vụ --</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="MaDV" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="SoLuong" class="form-label">Số lượng</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-sort-numeric-up"></i></span>
+                                <input asp-for="SoLuong" class="form-control" type="number" min="1" required />
+                            </div>
+                            <span asp-validation-for="SoLuong" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút điều khiển -->
+                <div class="row">
+                    <div class="col-12">
+                        <hr class="my-4">
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Lưu đăng ký
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Tự động điền ngày đăng ký là ngày hiện tại
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('NgayDangKy').value = today;
+        });
+    </script>
+}

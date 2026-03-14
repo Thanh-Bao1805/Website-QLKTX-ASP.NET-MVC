@@ -1,0 +1,203 @@
+﻿@model DoAnCoSo.Models.HopDong
+@{
+    ViewData["Title"] = "Cập nhật Hợp Đồng";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-warning text-dark py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-edit me-2"></i>@ViewData["Title"]
+                </h5>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Quay lại
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Hiển thị thông báo -->
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i> @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <form asp-action="Update" method="post" id="hopDongForm">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-4" role="alert"></div>
+
+                <div class="row g-4">
+                    <!-- Thông tin hợp đồng -->
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3 text-warning">
+                                    <i class="fas fa-info-circle me-2"></i>Thông tin hợp đồng
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label fw-bold">Mã hợp đồng</label>
+                                            <input asp-for="MaHopDong" class="form-control bg-light" readonly />
+                                            <small class="form-text text-muted">Mã hợp đồng không thể thay đổi</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="TrangThai" class="form-label fw-bold">Trạng thái *</label>
+                                            <select asp-for="TrangThai" class="form-select" required>
+                                                <option value="">-- Chọn trạng thái --</option>
+                                                <option value="Đang hoạt động">Đang hoạt động</option>
+                                                <option value="Tạm ngưng">Tạm ngưng</option>
+                                                <option value="Đã kết thúc">Đã kết thúc</option>
+                                                <option value="Hủy bỏ">Hủy bỏ</option>
+                                            </select>
+                                            <span asp-validation-for="TrangThai" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thời gian hợp đồng -->
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3 text-success">
+                                    <i class="fas fa-calendar-alt me-2"></i>Thời gian hợp đồng
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="NgayBatDau" class="form-label fw-bold">Ngày bắt đầu *</label>
+                                            <input asp-for="NgayBatDau" type="date" class="form-control" required
+                                                   onchange="validateDates()" />
+                                            <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="NgayKetThuc" class="form-label fw-bold">Ngày kết thúc *</label>
+                                            <input asp-for="NgayKetThuc" type="date" class="form-control" required
+                                                   onchange="validateDates()" />
+                                            <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                                            <div id="dateError" class="text-danger small mt-1" style="display: none;">
+                                                Ngày kết thúc phải sau ngày bắt đầu
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin liên quan -->
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3 text-info">
+                                    <i class="fas fa-users me-2"></i>Thông tin liên quan
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="MaSV" class="form-label fw-bold">Sinh viên *</label>
+                                            <select asp-for="MaSV" class="form-select" required>
+                                                <option value="">-- Chọn sinh viên --</option>
+                                                @foreach (var sv in ViewBag.SinhViens)
+                                                {
+                                                    <option value="@sv.Value" selected="@(sv.Value == Model.MaSV)">@sv.Text</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="MaSV" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="MaPhong" class="form-label fw-bold">Phòng *</label>
+                                            <select asp-for="MaPhong" class="form-select" required>
+                                                <option value="">-- Chọn phòng --</option>
+                                                @foreach (var phong in ViewBag.Phongs)
+                                                {
+                                                    <option value="@phong.Value" selected="@(phong.Value == Model.MaPhong)">@phong.Text</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="MaPhong" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="MaNV" class="form-label fw-bold">Nhân viên *</label>
+                                            <select asp-for="MaNV" class="form-select" required>
+                                                <option value="">-- Chọn nhân viên --</option>
+                                                @foreach (var nv in ViewBag.NhanViens)
+                                                {
+                                                    <option value="@nv.Value" selected="@(nv.Value == Model.MaNV)">@nv.Text</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="MaNV" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-warning px-4" onclick="return validateDates()">
+                        <i class="fas fa-save me-2"></i>Cập nhật
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Hàm validate ngày
+        function validateDates() {
+            var ngayBatDau = new Date($('#NgayBatDau').val());
+            var ngayKetThuc = new Date($('#NgayKetThuc').val());
+            var dateError = $('#dateError');
+
+            if (ngayBatDau && ngayKetThuc && ngayKetThuc <= ngayBatDau) {
+                dateError.show();
+                alert('Ngày kết thúc phải sau ngày bắt đầu');
+                return false;
+            } else {
+                dateError.hide();
+                return true;
+            }
+        }
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .card-title {
+            font-weight: 600;
+        }
+
+        .bg-light {
+            background-color: #f8f9fa !important;
+        }
+    </style>
+}

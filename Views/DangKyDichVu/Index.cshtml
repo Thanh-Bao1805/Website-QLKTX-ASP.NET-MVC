@@ -1,0 +1,174 @@
+﻿@model IEnumerable<DoAnCoSo.Models.DangKyDichVu>
+
+@{
+    ViewData["Title"] = "Danh sách đăng ký dịch vụ";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-concierge-bell text-primary me-2"></i>@ViewData["Title"]
+                </h5>
+                <a asp-action="Add" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Đăng ký dịch vụ mới
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <!-- Form tìm kiếm -->
+            <div class="card bg-light mb-4">
+                <div class="card-body">
+                    <form asp-action="Index" method="get" class="row g-3">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="fas fa-search text-primary"></i>
+                                </span>
+                                <input type="text" name="searchString" value="@ViewBag.CurrentSearch" 
+                                       class="form-control" placeholder="Tìm theo mã đăng ký hoặc tên sinh viên...">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="maSV" class="form-select" asp-items="ViewBag.SinhViens">
+                                <option value="">Tất cả sinh viên</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="maDV" class="form-select" asp-items="ViewBag.DichVus">
+                                <option value="">Tất cả dịch vụ</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary flex-grow-1">
+                                    <i class="fas fa-search me-2"></i>Tìm kiếm
+                                </button>
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    <i class="fas fa-redo"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Danh sách đăng ký -->
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã đăng ký</th>
+                            <th>Ngày đăng ký</th>
+                            <th>Sinh viên</th>
+                            <th>Dịch vụ</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền</th>
+                            <th class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">@item.MaDKDV</span>
+                                </td>
+                                <td>@item.NgayDangKy.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-user text-primary me-2"></i>
+                                        <div>
+                                            <div class="fw-bold">@item.SinhVien?.HoTen</div>
+                                            <small class="text-muted">@item.SinhVien?.MaSV</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-concierge-bell text-primary me-2"></i>
+                                        <div>
+                                            <div class="fw-bold">@item.DichVu?.TenDichVu</div>
+                                            <small class="text-muted">@item.DichVu?.DonGia.ToString("N0") VNĐ</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">@item.SoLuong</span>
+                                </td>
+                                <td>
+                                    <span class="text-primary fw-bold">@item.TongTien.ToString("N0") VNĐ</span>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a asp-action="Display" asp-route-id="@item.MaDKDV" 
+                                           class="btn btn-info btn-sm" title="Xem chi tiết">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a asp-action="Update" asp-route-id="@item.MaDKDV" 
+                                               class="btn btn-warning btn-sm" title="Cập nhật">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.MaDKDV" 
+                                               class="btn btn-danger btn-sm" title="Xóa">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5">
+                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">Không có đăng ký dịch vụ nào</h5>
+                    <p class="text-muted">Hãy đăng ký dịch vụ mới để bắt đầu</p>
+                    <a asp-action="Add" class="btn btn-primary mt-3">
+                        <i class="fas fa-plus me-2"></i>Đăng ký dịch vụ mới
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .table > :not(caption) > * > * {
+            padding: 1rem;
+        }
+        .badge {
+            font-weight: 500;
+            padding: 0.5em 0.8em;
+        }
+        .btn-sm {
+            padding: 0.4rem 0.6rem;
+        }
+        .form-select, .form-control {
+            border-color: #dee2e6;
+        }
+        .form-select:focus, .form-control:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+        .input-group-text {
+            border-color: #dee2e6;
+        }
+    </style>
+}

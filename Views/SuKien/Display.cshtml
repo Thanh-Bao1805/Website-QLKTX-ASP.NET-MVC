@@ -1,0 +1,102 @@
+﻿@model DoAnCoSo.Models.SuKien
+@{
+    ViewData["Title"] = "Chi tiết sự kiện";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="card-title text-primary mb-0">
+                            <i class="fas fa-calendar-day me-2"></i>@Model.TenSuKien
+                        </h2>
+                        <span class="badge bg-primary">@Model.MaSuKien</span>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-12 col-md-6">
+                            <div class="detail-item">
+                                <h6 class="text-muted mb-2">
+                                    <i class="fas fa-calendar me-2"></i>Ngày tổ chức
+                                </h6>
+                                <p class="fs-5">@Model.NgayToChuc.ToString("dd/MM/yyyy")</p>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="detail-item">
+                                <h6 class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Địa điểm
+                                </h6>
+                                <p class="fs-5">@Model.DiaDiem</p>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="detail-item">
+                                <h6 class="text-muted mb-2">
+                                    <i class="fas fa-align-left me-2"></i>Nội dung
+                                </h6>
+                                <p class="fs-6">@Model.NoiDung</p>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="detail-item">
+                                <h6 class="text-muted mb-2">
+                                    <i class="fas fa-user-shield me-2"></i>Quản trị viên phụ trách
+                                </h6>
+                                <p class="fs-5">@(Model.QuanTriVien?.HoTen ?? "Chưa phân công")</p>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <hr class="my-4">
+                            <div class="text-end">
+                                <a asp-action="Index" class="btn btn-outline-secondary me-2">
+                                    <i class="fas fa-arrow-left me-2"></i>Trở về danh sách
+                                </a>
+                                @if (User.IsInRole("Admin"))
+                    {
+                                <a asp-action="Update" asp-route-id="@Model.MaSuKien" class="btn btn-warning me-2">
+                                    <i class="fas fa-edit me-2"></i>Chỉnh sửa
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@Model.MaSuKien" class="btn btn-danger">
+                                    <i class="fas fa-trash-alt me-2"></i>Xóa
+                                </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .detail-item {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        height: 100%;
+    }
+
+    .badge {
+        font-size: 1rem;
+        padding: 0.5em 1em;
+        border-radius: 6px;
+    }
+
+    .btn {
+        padding: 0.5rem 1.5rem;
+        border-radius: 6px;
+    }
+</style>

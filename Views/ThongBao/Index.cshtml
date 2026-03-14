@@ -1,0 +1,119 @@
+﻿@model IEnumerable<DoAnCoSo.Models.ThongBao>
+
+@{
+    ViewData["Title"] = "Danh Sách Thông Báo";
+}
+
+<style>
+    .page-title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .card-custom {
+        border-radius: 12px;
+        padding: 0;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+    .table thead th {
+        background: #212529 !important;
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    .btn-action {
+        padding: 6px 10px;
+        margin-right: 5px;
+    }
+
+    .btn-add {
+        padding: 10px 18px;
+        font-size: 15px;
+        border-radius: 8px;
+    }
+
+    .container-full {
+        max-width: 100%;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+</style>
+
+<div class="container-full mt-4">
+    <h2 class="page-title">@ViewData["Title"]</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="d-flex justify-content-between mb-3">
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Add" class="btn btn-primary btn-add">
+                <i class="fas fa-plus"></i> Thêm Thông Báo Mới
+            </a>
+        }
+    </div>
+
+    <div class="card card-custom">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Mã TB</th>
+                        <th>Tiêu Đề</th>
+                        <th>Ngày Gửi</th>
+                        <th>Đối Tượng</th>
+                        <th>Quản Trị Viên</th>
+                        <th class="text-center">Thao Tác</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaTB</td>
+                            <td>@item.TieuDe</td>
+                            <td>@item.NgayGui.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@item.DoiTuong</td>
+                            <td>@(item.QuanTriVien?.HoTen ?? "Không xác định")</td>
+
+                            <td class="text-center">
+                                <a asp-action="Display" asp-route-id="@item.MaTB"
+                                   class="btn btn-info btn-sm btn-action" title="Xem">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Update" asp-route-id="@item.MaTB"
+                                       class="btn btn-warning btn-sm btn-action" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <a asp-action="Delete" asp-route-id="@item.MaTB"
+                                       class="btn btn-danger btn-sm btn-action" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

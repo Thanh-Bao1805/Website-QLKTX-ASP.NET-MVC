@@ -1,0 +1,50 @@
+﻿@model DoAnCoSo.Models.Phong
+
+@{
+    ViewData["Title"] = "Xác nhận xóa phòng";
+}
+
+<h2>Xác nhận xóa phòng</h2>
+
+<div class="alert alert-warning">
+    <strong>Bạn có chắc chắn muốn xóa phòng @Model.MaPhong không?</strong>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Số Giường</dt>
+            <dd class="col-sm-9">@Model.SoGiuong</dd>
+
+            <dt class="col-sm-3">Loại Phòng</dt>
+            <dd class="col-sm-9">@Model.LoaiPhong</dd>
+
+            <dt class="col-sm-3">Giá Phòng</dt>
+            <dd class="col-sm-9">@Model.GiaPhong</dd>
+
+            <dt class="col-sm-3">Tiền Cọc</dt>
+            <dd class="col-sm-9">@Model.TienCoc</dd>
+
+            <dt class="col-sm-3">Tòa</dt>
+            <dd class="col-sm-9">@Model.Toa?.TenToa</dd>
+
+            <dt class="col-sm-3">Hình Ảnh</dt>
+            <dd class="col-sm-9">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="Hình ảnh phòng" style="max-width:150px;" />
+                }
+                else
+                {
+                    <span>Không có ảnh</span>
+                }
+            </dd>
+        </dl>
+
+        <form asp-action="Delete" asp-route-id="@Model.MaPhong" method="post">
+            <input type="hidden" asp-for="MaPhong" />
+            <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</div>

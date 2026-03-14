@@ -1,0 +1,101 @@
+﻿@model DoAnCoSo.Models.ThietBi
+
+@{
+    ViewData["Title"] = "Thêm thiết bị";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0">@ViewData["Title"]</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-action="Add" class="needs-validation" novalidate>
+                <div class="row">
+
+                    <!-- KHÔNG dùng asp-for để tránh ModelState yêu cầu nhập -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Mã thiết bị</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                            <input class="form-control" value="(Tự sinh)" readonly />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="TenThietBi" class="form-label">Tên thiết bị</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-tools"></i></span>
+                            <input asp-for="TenThietBi" class="form-control" placeholder="Nhập tên thiết bị" required />
+                        </div>
+                        <span asp-validation-for="TenThietBi" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Loai" class="form-label">Loại thiết bị</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                            <select asp-for="Loai" class="form-select" required>
+                                <option value="">Chọn loại thiết bị</option>
+                                <option value="Điện">Điện</option>
+                                <option value="Nước">Nước</option>
+                                <option value="Nội thất">Nội thất</option>
+                                <option value="Điện tử">Điện tử</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="Loai" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="MoTa" class="form-label">Mô tả</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+                            <textarea asp-for="MoTa" class="form-control" placeholder="Nhập mô tả thiết bị" rows="1"></textarea>
+                        </div>
+                        <span asp-validation-for="MoTa" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times me-2"></i>Hủy
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Lưu
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            (function () {
+                'use strict'
+                var forms = document.querySelectorAll('.needs-validation')
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false)
+                    })
+            })();
+
+            $('textarea').on('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        });
+    </script>
+}

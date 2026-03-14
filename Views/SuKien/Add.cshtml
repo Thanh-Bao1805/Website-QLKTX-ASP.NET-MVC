@@ -1,0 +1,77 @@
+﻿@model DoAnCoSo.Models.SuKien
+
+@{
+    ViewData["Title"] = "Thêm Sự Kiện Mới";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Add" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <!-- HIỂN THỊ MÃ SỰ KIỆN TỰ SINH -->
+                        <div class="mb-3">
+                            <label class="form-label">Mã sự kiện (tự động)</label>
+                            <input asp-for="MaSuKien" class="form-control" readonly />
+                            <small class="text-muted">Mã này sẽ được tự động tạo</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="TenSuKien" class="form-label"></label>
+                            <input asp-for="TenSuKien" class="form-control" placeholder="Nhập tên sự kiện" />
+                            <span asp-validation-for="TenSuKien" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="NgayToChuc" class="form-label"></label>
+                            <input asp-for="NgayToChuc" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="NgayToChuc" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="DiaDiem" class="form-label"></label>
+                            <input asp-for="DiaDiem" class="form-control" placeholder="Nhập địa điểm tổ chức" />
+                            <span asp-validation-for="DiaDiem" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="NoiDung" class="form-label"></label>
+                            <textarea asp-for="NoiDung" class="form-control" rows="6"
+                                      placeholder="Nhập nội dung sự kiện"></textarea>
+                            <span asp-validation-for="NoiDung" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="MaQTV" class="form-label">Quản trị viên</label>
+                            <select asp-for="MaQTV" asp-items="ViewBag.QuanTriViens" class="form-select">
+                                <option value="">-- Chọn quản trị viên --</option>
+                            </select>
+                            <span asp-validation-for="MaQTV" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Thêm Sự Kiện
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Hủy Bỏ
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

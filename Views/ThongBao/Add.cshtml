@@ -1,0 +1,80 @@
+﻿@model DoAnCoSo.Models.ThongBao
+
+@{
+    ViewData["Title"] = "Thêm Thông Báo Mới";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Add" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <!-- HIỂN THỊ MÃ THÔNG BÁO TỰ SINH -->
+                        <div class="mb-3">
+                            <label class="form-label">Mã thông báo (tự động)</label>
+                            <input asp-for="MaTB" class="form-control" readonly />
+                            <small class="text-muted">Mã này sẽ được tự động tạo</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="TieuDe" class="form-label"></label>
+                            <input asp-for="TieuDe" class="form-control" placeholder="Nhập tiêu đề thông báo" />
+                            <span asp-validation-for="TieuDe" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="NoiDung" class="form-label"></label>
+                            <textarea asp-for="NoiDung" class="form-control" rows="6"
+                                      placeholder="Nhập nội dung thông báo"></textarea>
+                            <span asp-validation-for="NoiDung" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="NgayGui" class="form-label"></label>
+                            <input asp-for="NgayGui" class="form-control" type="datetime-local"
+                                   value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                            <span asp-validation-for="NgayGui" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="DoiTuong" class="form-label"></label>
+                            <select asp-for="DoiTuong" asp-items="ViewBag.DoiTuongs" class="form-select">
+                                <option value="">-- Chọn đối tượng nhận thông báo --</option>
+                            </select>
+                            <span asp-validation-for="DoiTuong" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="MaQTV" class="form-label">Quản trị viên</label>
+                            <select asp-for="MaQTV" asp-items="ViewBag.QuanTriViens" class="form-select">
+                                <option value="">-- Chọn quản trị viên --</option>
+                            </select>
+                            <span asp-validation-for="MaQTV" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Thêm Thông Báo
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Hủy Bỏ
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,32 @@
+﻿@model DoAnCoSo.Models.QuanTriVien
+
+@{
+    ViewData["Title"] = "Xóa quản trị viên";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning">
+    <strong>Bạn có chắc chắn muốn xóa quản trị viên này?</strong>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Mã QTV</dt>
+            <dd class="col-sm-9">@Model.MaQTV</dd>
+
+            <dt class="col-sm-3">Họ tên</dt>
+            <dd class="col-sm-9">@Model.HoTen</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="MaQTV" />
+            <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</div>

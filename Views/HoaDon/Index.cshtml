@@ -1,0 +1,198 @@
+﻿@model IEnumerable<DoAnCoSo.Models.HoaDon>
+@{
+    ViewData["Title"] = "Danh sách hóa đơn";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+            <h5 class="mb-0">@ViewData["Title"]</h5>
+             @if (User.IsInRole("Admin"))
+                                {
+            <a asp-action="Add" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Thêm hóa đơn
+            </a>
+            }
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="hoaDonTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã hóa đơn</th>
+                            <th>Ngày lập</th>
+                            <th>Loại hóa đơn</th>
+                            <th>Thông tin sinh viên</th>
+                            <th>Thông tin nhân viên</th>
+                            <th>Tổng tiền</th>
+                            <th>Mã tham chiếu</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-medium">@item.MaHoaDon</td>
+                                <td>@item.NgayLap.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @if (item.LoaiChiPhi == "HoaDonDienNuoc")
+                                    {
+                                        <span class="badge bg-info">Hóa đơn điện nước</span>
+                                    }
+                                    else if (item.LoaiChiPhi == "HoaDonDichVu")
+                                    {
+                                        <span class="badge bg-success">Hóa đơn dịch vụ</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.SinhVien != null)
+                                    {
+                                        <div class="d-flex flex-column">
+                                            <small class="text-muted">Mã SV: @item.SinhVien.MaSV</small>
+                                            <span class="fw-medium">@item.SinhVien.HoTen</span>
+                                            <small class="text-muted">Lớp: @item.SinhVien.Lop</small>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Không có thông tin</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.NhanVien != null)
+                                    {
+                                        <div class="d-flex flex-column">
+                                            <small class="text-muted">Mã NV: @item.NhanVien.MaNV</small>
+                                            <span class="fw-medium">@item.NhanVien.HoTen</span>
+                                            <small class="text-muted">SĐT: @item.NhanVien.SDT</small>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Không có thông tin</span>
+                                    }
+                                </td>
+                                <td class="text-primary fw-bold text-end">@item.TongTien.ToString("N0") đ</td>
+                                <td>
+                                    @if (item.LoaiChiPhi == "HoaDonDienNuoc")
+                                    {
+                                        <span class="badge bg-light text-dark">@item.MaDN</span>
+                                    }
+                                    else if (item.LoaiChiPhi == "HoaDonDichVu")
+                                    {
+                                        <span class="badge bg-light text-dark">@item.MaDKDV</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.TrangThai == "Đã thanh toán")
+                                    {
+                                        <span class="badge bg-success">Đã thanh toán</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark">Chưa thanh toán</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a asp-action="Display" asp-route-id="@item.MaHoaDon" class="btn btn-sm btn-info" title="Chi tiết">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                        <a asp-action="Update" asp-route-id="@item.MaHoaDon" class="btn btn-sm btn-warning" title="Sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.MaHoaDon" class="btn btn-sm btn-danger" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        }
+                                        <a asp-action="ExportPdf" asp-route-id="@item.MaHoaDon" class="btn btn-sm btn-info" title="Xuất PDF">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </a>
+                                        @if (item.TrangThai != "Đã thanh toán")
+                                        {
+                                            <a asp-action="Pay" asp-route-id="@item.MaHoaDon" class="btn btn-sm btn-success" title="Thanh toán">
+                                                <i class="fas fa-money-bill-wave"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#hoaDonTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/vi.json'
+                },
+                order: [[1, 'desc']],
+                columnDefs: [
+                    { targets: [5], className: 'text-end' },
+                    { targets: [7], orderable: false }
+                ]
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .table th {
+            font-weight: 600;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            white-space: nowrap;
+        }
+
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+
+        .badge {
+            font-weight: 500;
+            padding: 0.5em 0.8em;
+            border-radius: 6px;
+        }
+
+        .btn-group .btn {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-group .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(0,0,0,.02);
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+        }
+
+        .card-header {
+            border-bottom: 1px solid rgba(0,0,0,.125);
+        }
+
+        .text-muted {
+            font-size: 0.875rem;
+        }
+    </style>
+}
+

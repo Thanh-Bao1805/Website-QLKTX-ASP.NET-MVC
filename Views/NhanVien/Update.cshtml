@@ -1,0 +1,134 @@
+﻿@model DoAnCoSo.Models.NhanVien
+
+@{
+    ViewData["Title"] = "Cập nhật thông tin nhân viên";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-user-edit me-2"></i>@ViewData["Title"]
+                </h5>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Quay lại
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <form asp-action="Update" method="post" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="MaNV" class="form-label">Mã nhân viên</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                                <input asp-for="MaNV" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="HoTen" class="form-label">Họ và tên <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input asp-for="HoTen" class="form-control" required />
+                            </div>
+                            <span asp-validation-for="HoTen" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="SDT" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                <input asp-for="SDT" class="form-control" required />
+                            </div>
+                            <span asp-validation-for="SDT" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="MaChucVu" class="form-label">Chức vụ</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                                <select asp-for="MaChucVu" class="form-select" asp-items="ViewBag.ChucVus">
+                                    <option value="">-- Chọn chức vụ --</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="MaChucVu" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <hr class="my-4">
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Lưu thay đổi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-right: none;
+    }
+
+    .input-group > .form-control,
+    .input-group > .form-select {
+        border-left: none;
+    }
+
+    .input-group > .form-control:focus,
+    .input-group > .form-select:focus {
+        border-left: 1px solid var(--bs-primary);
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        box-shadow: none;
+        border-color: var(--bs-primary);
+    }
+
+    .form-control[readonly] {
+        background-color: #f8f9fa;
+        opacity: 0.8;
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+}

@@ -1,0 +1,106 @@
+﻿@model DoAnCoSo.Models.HopDong
+
+@{
+    ViewData["Title"] = "Chi tiết hợp đồng";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">@ViewData["Title"]</h5>
+                <div>
+                    <a asp-action="Update" asp-route-id="@Model.MaHopDong" class="btn btn-warning">
+                        <i class="fas fa-edit me-2"></i>Sửa
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">
+                        <i class="fas fa-arrow-left me-2"></i>Quay lại
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="detail-group">
+                        <label class="text-muted mb-1">Mã hợp đồng</label>
+                        <p class="h5">@Model.MaHopDong</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="detail-group">
+                        <label class="text-muted mb-1">Sinh viên</label>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-graduate text-primary me-2 h4 mb-0"></i>
+                            <p class="h5 mb-0">@Model.SinhVien?.HoTen</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="detail-group">
+                        <label class="text-muted mb-1">Phòng</label>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-door-open text-success me-2 h4 mb-0"></i>
+                            <p class="h5 mb-0">@Model.Phong?.MaPhong</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="detail-group">
+                        <label class="text-muted mb-1">Nhân viên phụ trách</label>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-tie text-info me-2 h4 mb-0"></i>
+                            <p class="h5 mb-0">@Model.NhanVien?.HoTen</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="detail-group">
+                        <label class="text-muted mb-1">Thời hạn hợp đồng</label>
+                        <div class="small">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                <span>Từ: @Model.NgayBatDau.ToString("dd/MM/yyyy")</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar-alt text-danger me-2"></i>
+                                <span>Đến: @Model.NgayKetThuc.ToString("dd/MM/yyyy")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="detail-group">
+                        <label class="text-muted mb-1">Trạng thái</label>
+                        <p class="h5">
+                            @{
+                                var statusClass = Model.TrangThai.ToLower() switch
+                                {
+                                    "đang hiệu lực" => "bg-success",
+                                    "hết hạn" => "bg-secondary",
+                                    "đã hủy" => "bg-danger",
+                                    _ => "bg-light"
+                                };
+                            }
+                            <span class="badge @statusClass">@Model.TrangThai</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .detail-group {
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 0.5rem;
+        height: 100%;
+    }
+</style>

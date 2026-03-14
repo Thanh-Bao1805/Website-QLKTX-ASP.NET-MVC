@@ -1,0 +1,38 @@
+﻿@model DoAnCoSo.Models.DichVu
+
+@{
+    ViewData["Title"] = "Xóa dịch vụ";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Bạn có chắc chắn muốn xóa dịch vụ này?</h4>
+
+@if (!string.IsNullOrEmpty(Model.HinhAnh))
+{
+    <div class="mb-3">
+        <img src="@Model.HinhAnh" alt="Hình ảnh dịch vụ" class="img-fluid rounded" style="max-height:120px;object-fit:cover;" />
+    </div>
+}
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Mã dịch vụ</dt>
+        <dd class="col-sm-10">@Model.MaDV</dd>
+
+        <dt class="col-sm-2">Tên dịch vụ</dt>
+        <dd class="col-sm-10">@Model.TenDichVu</dd>
+
+        <dt class="col-sm-2">Đơn giá</dt>
+        <dd class="col-sm-10">@Model.DonGia.ToString("N0") VNĐ</dd>
+
+        <dt class="col-sm-2">Mô tả</dt>
+        <dd class="col-sm-10">@Model.MoTa</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="MaDV" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

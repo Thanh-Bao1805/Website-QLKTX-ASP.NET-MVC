@@ -1,0 +1,86 @@
+﻿@model DoAnCoSo.Models.ThietBi
+
+@{
+    ViewData["Title"] = "Xóa thiết bị";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm border-danger">
+        <div class="card-header bg-danger bg-opacity-10 d-flex justify-content-between align-items-center py-3">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-exclamation-triangle text-danger me-2"></i>
+                <h5 class="mb-0 text-danger">@ViewData["Title"]</h5>
+            </div>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-times me-2"></i>Hủy
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                Bạn có chắc chắn muốn xóa thiết bị này không? Hành động này không thể hoàn tác.
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="border rounded p-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
+                                <i class="fas fa-barcode text-primary"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Mã thiết bị</div>
+                                <div class="fw-medium">@Model.MaThietBi</div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3">
+                                <i class="fas fa-tools text-success"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Tên thiết bị</div>
+                                <div class="fw-medium">@Model.TenThietBi</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3">
+                                <i class="fas fa-tag text-info"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Loại thiết bị</div>
+                                <div>
+                                    <span class="badge bg-info">@Model.Loai</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-secondary bg-opacity-10 p-3 me-3">
+                                <i class="fas fa-align-left text-secondary"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Mô tả</div>
+                                <div class="text-wrap">@(string.IsNullOrEmpty(Model.MoTa) ? "Không có mô tả" : Model.MoTa)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="MaThietBi" />
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times me-2"></i>Hủy
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>Xác nhận xóa
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

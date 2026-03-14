@@ -1,0 +1,66 @@
+﻿@model DoAnCoSo.Models.ViPham
+
+@{
+    ViewData["Title"] = "Thêm Vi Phạm Mới";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Add" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <!-- HIỂN THỊ MÃ VI PHẠM TỰ SINH -->
+                        <div class="mb-3">
+                            <label class="form-label">Mã vi phạm (tự động)</label>
+                            <input asp-for="MaViPham" class="form-control" readonly />
+                            <small class="text-muted">Mã này sẽ được tự động tạo</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="NgayViPham" class="form-label"></label>
+                            <input asp-for="NgayViPham" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="NgayViPham" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="MaSV" class="form-label">Sinh viên</label>
+                            <select asp-for="MaSV" asp-items="ViewBag.SinhViens" class="form-select">
+                                <option value="">-- Chọn sinh viên --</option>
+                            </select>
+                            <span asp-validation-for="MaSV" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="MaNoiQuy" class="form-label">Nội quy vi phạm</label>
+                            <select asp-for="MaNoiQuy" asp-items="ViewBag.NoiQuys" class="form-select">
+                                <option value="">-- Chọn nội quy --</option>
+                            </select>
+                            <span asp-validation-for="MaNoiQuy" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-save"></i> Thêm Vi Phạm
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Hủy Bỏ
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

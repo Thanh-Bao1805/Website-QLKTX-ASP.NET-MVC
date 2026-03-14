@@ -1,0 +1,544 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Quản lý Ký Túc Xá Hiện Đại</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DoAnCoSo.styles.css" asp-append-version="true" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @await RenderSectionAsync("Styles", required: false)
+    <style>
+        :root {
+            --primary-color:rgba(38, 64, 193, 0.97);
+            --secondary-color:rgba(38, 64, 193, 0.97);
+            --accent-color:rgb(68, 214, 153);
+            --text-color: #444;
+            --sidebar-width: 280px;
+            --header-height: 60px;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .main-wrapper {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: transform var(--transition-speed) ease;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-brand h5 {
+            margin: 0;
+            color: white;
+            font-weight: 600;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-section {
+            padding: 1rem;
+        }
+
+        .nav-section-title {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.75rem 0;
+            margin-top: 1rem;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.85);
+            padding: 0.75rem 1rem;
+            margin: 0.2rem 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar .nav-link:hover i,
+        .sidebar .nav-link.active i {
+            transform: scale(1.1);
+        }
+
+        /* Content Area Styles */
+        .content-area {
+            flex-grow: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            transition: margin-left var(--transition-speed) ease;
+        }
+
+        /* Header Styles */
+        .content-header {
+            background: white;
+            padding: 1.5rem 2rem;
+            margin: -2rem -2rem 2rem -2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #eee;
+        }
+
+        .content-header h4 {
+            margin: 0;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        /* Footer Styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            background: rgb(140, 198, 229);
+            padding: 1rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: all var(--transition-speed) ease;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Add padding to main content to prevent footer overlap */
+        main {
+            padding-bottom: 4rem;
+        }
+
+        /* User Info Section */
+        .user-info {
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.1);
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-info .nav-link {
+            padding: 0.5rem 0;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Scrollbar Styles */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .content-area {
+                margin-left: 0;
+            }
+
+            .content-header {
+                padding: 1rem;
+            }
+        }
+
+        /* Animation */
+        .nav-link {
+            transition: all var(--transition-speed) ease;
+        }
+
+        /* Custom Styles for Login Partial */
+        .navbar-nav {
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .navbar-nav .btn-link {
+            color: rgba(255,255,255,0.9) !important;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            transition: all var(--transition-speed) ease;
+            border-radius: 8px;
+        }
+
+        .navbar-nav .btn-link:hover {
+            color: white !important;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Card and Form Styles */
+        .card {
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            padding: 0.75rem 1rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.2rem rgba(57, 73, 171, 0.25);
+        }
+
+        .btn {
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    @{
+        var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+        var isStudent = User.IsInRole("SinhVien");
+        var isAdmin = User.IsInRole("Admin");
+        var isNhanVien = User.IsInRole("NhanVien");
+    }
+    <div class="main-wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <h5><i class="fas fa-building me-2"></i>Quản lý Ký Túc Xá </h5>
+            </div>
+
+            <div class="nav-section">
+                @if (!isAuthenticated)
+                {
+                    <!-- Menu khi chưa đăng nhập: chỉ hiển thị Trang chủ và Đăng nhập -->
+                    <div class="nav-section-title">TRANG CHÍNH</div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-house"></i>Trang chủ
+                        </a>
+                    </nav>
+                }
+                else if (isStudent)
+                {
+                    <!-- Menu cho SinhVien -->
+                    <div class="nav-section-title">TRANG CHÍNH</div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-house"></i>Trang chủ
+                        </a>
+                    </nav>
+                
+                    <div class="nav-section-title">DỊCH VỤ & TIỆN ÍCH</div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" asp-controller="DichVu" asp-action="Index">
+                            <i class="fas fa-bell-concierge"></i> Dịch vụ
+                        </a>
+                        <a class="nav-link" asp-controller="DienNuoc" asp-action="Index">
+                            <i class="fas fa-plug"></i>Điện nước
+                        </a>
+                    </nav>
+
+                    <div class="nav-section-title">HỢP ĐỒNG & THANH TOÁN</div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" asp-controller="HopDong" asp-action="Index">
+                            <i class="fas fa-file-signature"></i>Hợp đồng
+                        </a>
+                        <a class="nav-link" asp-controller="HoaDon" asp-action="Index">
+                            <i class="fas fa-receipt"></i>Hóa đơn
+                        </a>
+                    </nav>
+
+                    <div class="nav-section-title">THÔNG TIN & PHẢN HỒI</div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" asp-controller="ThongBao" asp-action="Index">
+                            <i class="fas fa-bullhorn"></i>Thông báo
+                        </a>
+                        <a class="nav-link" asp-controller="SuKien" asp-action="Index">
+                            <i class="fas fa-calendar-days"></i>Sự kiện
+                        </a>
+                        <a class="nav-link" asp-controller="ViPham" asp-action="Index">
+                            <i class="fas fa-ban"></i>Vi phạm
+                        </a>
+                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "PhanHoi" ? "active" : "")"
+                           asp-controller="PhanHoi" asp-action="Index">
+                            <i class="fas fa-message"></i>Phản hồi
+                        </a>
+                    </nav>
+                }
+                else
+                {
+                    <!-- Menu cho Admin/NhanVien -->
+                    <div class="nav-section-title">TRANG CHÍNH</div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-house"></i>Trang chủ
+                        </a>
+                    </nav>
+
+                    <div class="nav-section-title">QUẢN LÝ ĐĂNG KÝ Ở VÀ DỊCH VỤ</div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" asp-controller="DangKyO" asp-action="Index">
+                            <i class="fas fa-clipboard-list"></i>Danh sách đăng ký
+                        </a>
+                        <a class="nav-link" asp-controller="DangKyO" asp-action="Add">
+                            <i class="fas fa-file-circle-plus"></i>Thêm đăng ký mới
+                        </a>
+                        <a class="nav-link" asp-controller="DichVu" asp-action="Index">
+                            <i class="fas fa-bell-concierge"></i> Dịch vụ
+                        </a>
+                        <a class="nav-link" asp-controller="DangKyDichVu" asp-action="Index">
+                            <i class="fas fa-clipboard-check"></i> Đăng ký dịch vụ
+                        </a>
+                    </nav>
+
+                    <div class="nav-section-title">QUẢN LÝ TÀI CHÍNH</div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" asp-controller="HoaDon" asp-action="Index">
+                            <i class="fas fa-receipt"></i>Hóa Đơn
+                        </a>
+                    </nav>
+
+                    @if (isAdmin)
+                    {
+                        <div class="nav-section-title">QUẢN LÝ NHÂN SỰ</div>
+                        <nav class="nav flex-column">
+                            <a class="nav-link" asp-controller="QuanTriVien" asp-action="Index">
+                                <i class="fas fa-user-gear"></i>Quản trị viên
+                            </a>
+                            <a class="nav-link" asp-controller="NhanVien" asp-action="Index">
+                                <i class="fas fa-users"></i>Nhân viên
+                            </a>
+                            <a class="nav-link" asp-controller="SinhVien" asp-action="Index">
+                                <i class="fas fa-user-graduate"></i>Sinh viên
+                            </a>
+                            <a class="nav-link" asp-controller="Admin" asp-action="Users">
+                                <i class="fas fa-user-shield"></i> Phân quyền
+                            </a>
+                        </nav>
+                    }
+
+                    <div class="nav-section-title">QUẢN LÝ CƠ SỞ</div>
+                    <nav class="nav flex-column">
+                        @if (isAdmin)
+                        {
+                            <a class="nav-link" asp-controller="ThongKe" asp-action="Index">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Thống Kê</span>
+                            </a>
+                        }
+
+                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Phong" ? "active" : "")"
+                           asp-controller="Phong" asp-action="Index">
+                            <i class="fas fa-door-closed"></i> Phòng
+                        </a>
+
+                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "ThietBi" ? "active" : "")"
+                           asp-controller="ThietBi" asp-action="Index">
+                            <i class="fas fa-laptop"></i> Thiết bị
+                        </a>
+
+                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "SuCoBaoTri" ? "active" : "")"
+                           asp-controller="SuCoBaoTri" asp-action="Index">
+                            <i class="fas fa-triangle-exclamation"></i> Sự cố bảo trì
+                        </a>
+
+                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "DienNuoc" ? "active" : "")"
+                           asp-controller="DienNuoc" asp-action="Index">
+                            <i class="fas fa-plug"></i> Điện nước
+                        </a>
+                    </nav>
+
+                    <div class="nav-section-title">QUẢN LÝ HOẠT ĐỘNG</div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" asp-controller="HopDong" asp-action="Index">
+                            <i class="fas fa-file-signature"></i>Hợp đồng
+                        </a>
+                        <a class="nav-link" asp-controller="LichTrucNhanVien" asp-action="Index">
+                            <i class="fas fa-calendar-check"></i>Lịch trực
+                        </a>
+                        @if (isAdmin)
+                        {
+                            <a class="nav-link" asp-controller="PhieuDuyet" asp-action="Index">
+                                <i class="fas fa-clipboard-question"></i>Phiếu duyệt
+                            </a>
+                        }
+                    </nav>
+
+                    <div class="nav-section-title">THÔNG TIN & QUẢN LÝ</div>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" asp-controller="ThongBao" asp-action="Index">
+                            <i class="fas fa-bullhorn"></i>Thông báo
+                        </a>
+                        <a class="nav-link" asp-controller="SuKien" asp-action="Index">
+                            <i class="fas fa-calendar-days"></i>Sự kiện
+                        </a>
+                        <a class="nav-link" asp-controller="ViPham" asp-action="Index">
+                            <i class="fas fa-ban"></i>Vi phạm
+                        </a>
+                        @if (isAdmin)
+                        {
+                            <a class="nav-link" asp-controller="PhanHoi" asp-action="AdminIndex">
+                                <i class="fas fa-comments"></i>Danh sách sinh viên chat
+                            </a>
+                        }
+                    </nav>
+                }
+            </div>
+
+            <!-- User Info Section -->
+            <div class="user-info">
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Content Header -->
+            <div class="content-header">
+                <h4>@ViewData["Title"]</h4>
+            </div>
+
+            <!-- Main Content -->
+            <main role="main">
+                @RenderBody()
+            </main>
+
+            <!-- Footer -->
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="mb-0">
+                                <i class="fas fa-school me-2"></i>
+                                &copy; @DateTime.Now.Year - Hệ thống Quản lý Ký Túc Xá Hiện Đại | 
+                                <a asp-controller="Home" asp-action="Privacy"><i class="fas fa-shield-alt me-1"></i>Chính sách bảo mật</a> | 
+                                <a asp-controller="Home" asp-action="Contact"><i class="fas fa-envelope me-1"></i>Liên hệ</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // Highlight active menu item
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Handle responsive sidebar
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

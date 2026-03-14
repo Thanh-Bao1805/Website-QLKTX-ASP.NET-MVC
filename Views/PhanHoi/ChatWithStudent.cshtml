@@ -1,0 +1,183 @@
+﻿@{
+    ViewData["Title"] = "Chat với sinh viên";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="fas fa-user-graduate me-2"></i>Chat với sinh viên: @ViewBag.StudentId</h5>
+        <a href="@Url.Action("AdminIndex")" class="btn btn-light btn-sm">
+            <i class="fas fa-arrow-left me-1"></i>Quay lại
+        </a>
+    </div>
+
+    <div class="card-body" style="height: 60vh; overflow-y: auto; background: #f8f9fa;" id="chatBox">
+        <!-- Tin nhắn sẽ được load ở đây -->
+    </div>
+
+    <div class="card-footer">
+        <div class="input-group">
+            <input type="text" id="messageInput" class="form-control" placeholder="Nhập tin nhắn cho sinh viên..." />
+
+            <!-- Nút chọn ảnh -->
+            <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+            <button class="btn btn-outline-primary" type="button" id="imageButton">
+                <i class="fas fa-image"></i>
+            </button>
+
+            <button class="btn btn-primary" id="sendButton">
+                <i class="fas fa-paper-plane me-1"></i>Gửi
+            </button>
+        </div>
+
+        <!-- Preview ảnh -->
+        <div id="imagePreview" class="mt-2" style="display: none;">
+            <img id="previewImg" style="max-height: 150px; max-width: 200px;" class="img-thumbnail" />
+            <button type="button" class="btn btn-sm btn-danger ms-2" onclick="clearImage()">
+                <i class="fas fa-times"></i> Hủy
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .build();
+
+        let selectedImage = null;
+
+        connection.start().then(() => {
+            console.log("Kết nối SignalR thành công");
+            loadChatHistory();
+        }).catch(err => console.error("Lỗi kết nối:", err));
+
+        // Cập nhật nhận tin nhắn
+        connection.on("ReceiveMessage", (nguoiGui, noiDung, ngayGui, loaiTinNhan, duongDanAnh) => {
+            addMessageToChat(nguoiGui, noiDung, ngayGui, loaiTinNhan, duongDanAnh);
+        });
+
+        document.getElementById('sendButton').addEventListener('click', sendMessage);
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Xử lý chọn ảnh
+        document.getElementById('imageButton').addEventListener('click', function() {
+            document.getElementById('imageInput').click();
+        });
+
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Ảnh không được lớn hơn 5MB');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    selectedImage = e.target.result;
+                    document.getElementById('previewImg').src = selectedImage;
+                    document.getElementById('imagePreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function clearImage() {
+            selectedImage = null;
+            document.getElementById('imageInput').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const noiDung = messageInput.value.trim();
+
+            if (noiDung || selectedImage) {
+                const nguoiGui = 'Admin';
+                const nguoiNhan = '@ViewBag.StudentId';
+
+                connection.invoke("SendMessage", nguoiGui, nguoiNhan, noiDung,
+                    selectedImage ? "image" : "text", selectedImage)
+                    .catch(err => console.error("Lỗi gửi tin nhắn:", err));
+
+                messageInput.value = '';
+                clearImage();
+            } else {
+                alert('Vui lòng nhập tin nhắn hoặc chọn ảnh');
+            }
+        }
+
+        function addMessageToChat(nguoiGui, noiDung, ngayGui, loaiTinNhan = "text", duongDanAnh = null) {
+            const chatBox = document.getElementById('chatBox');
+            const isCurrentUser = nguoiGui === 'Admin';
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `d-flex mb-3 ${isCurrentUser ? 'justify-content-end' : 'justify-content-start'}`;
+
+            let messageContent = '';
+
+            if (loaiTinNhan === "image" && duongDanAnh) {
+                messageContent = `
+                    <div class="${isCurrentUser ? 'bg-primary text-white' : 'bg-light'}
+                                rounded-3 p-3 shadow-sm" style="max-width: 70%;">
+                        <div class="fw-bold small">${nguoiGui}</div>
+                        <img src="${duongDanAnh}" style="max-height: 200px; max-width: 100%; cursor: pointer;"
+                             class="img-thumbnail mb-2" onclick="openImageModal('${duongDanAnh}')" />
+                        ${noiDung ? `<div class="mb-1 mt-2">${noiDung}</div>` : ''}
+                        <div class="small ${isCurrentUser ? 'text-light' : 'text-muted'}">${ngayGui}</div>
+                    </div>
+                `;
+            } else {
+                messageContent = `
+                    <div class="${isCurrentUser ? 'bg-primary text-white' : 'bg-light'}
+                                rounded-3 p-3 shadow-sm" style="max-width: 70%;">
+                        <div class="fw-bold small">${nguoiGui}</div>
+                        <div class="mb-1">${noiDung}</div>
+                        <div class="small ${isCurrentUser ? 'text-light' : 'text-muted'}">${ngayGui}</div>
+                    </div>
+                `;
+            }
+
+            messageDiv.innerHTML = messageContent;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function openImageModal(src) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.9); display: flex; justify-content: center;
+                align-items: center; z-index: 9999; cursor: pointer;
+            `;
+            modal.onclick = function() { modal.remove(); };
+
+            modal.innerHTML = `
+                <div style="position: relative; max-width: 90%; max-height: 90%;">
+                    <img src="${src}" style="max-height: 90vh; max-width: 90vw; border-radius: 8px;">
+                    <button onclick="event.stopPropagation(); this.parentElement.parentElement.remove()"
+                            style="position: absolute; top: 15px; right: 15px;
+                                   background: #dc3545; color: white; border: none;
+                                   padding: 8px 12px; border-radius: 50%; font-size: 16px;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function loadChatHistory() {
+            fetch('/PhanHoi/GetChatHistory?user1=Admin&user2=@ViewBag.StudentId')
+                .then(response => response.json())
+                .then(messages => {
+                    messages.forEach(msg => {
+                        addMessageToChat(msg.nguoiGui, msg.noiDung, msg.ngayGui, msg.loaiTinNhan, msg.duongDanAnh);
+                    });
+                });
+        }
+    </script>
+}

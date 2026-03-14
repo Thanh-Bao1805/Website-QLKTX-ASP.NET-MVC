@@ -1,0 +1,43 @@
+@model DoAnCoSo.Models.DangKyDichVu
+
+@{
+    ViewData["Title"] = "Xóa đăng ký dịch vụ";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-danger">
+    <h4>Bạn có chắc chắn muốn xóa đăng ký dịch vụ này?</h4>
+</div>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Mã đăng ký dịch vụ</dt>
+        <dd class="col-sm-9">@Model.MaDKDV</dd>
+
+        <dt class="col-sm-3">Sinh viên</dt>
+        <dd class="col-sm-9">@(Model.SinhVien?.HoTen ?? "N/A")</dd>
+
+        <dt class="col-sm-3">Dịch vụ</dt>
+        <dd class="col-sm-9">@(Model.DichVu?.TenDichVu ?? "N/A")</dd>
+
+        <dt class="col-sm-3">Ngày đăng ký</dt>
+        <dd class="col-sm-9">@Model.NgayDangKy.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Số lượng</dt>
+        <dd class="col-sm-9">@Model.SoLuong</dd>
+    </dl>
+
+    @if (Model.HoaDon != null)
+    {
+        <div class="alert alert-warning">
+            <strong>Cảnh báo:</strong> Đăng ký dịch vụ này đã có hóa đơn. Việc xóa có thể ảnh hưởng đến dữ liệu liên quan.
+        </div>
+    }
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="MaDKDV" />
+        <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+    </form>
+</div> 

@@ -1,0 +1,213 @@
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery-validation\LICENSE.md
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\js\site.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery\dist\jquery.slim.min.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery-validation\dist\jquery.validate.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery\dist\jquery.min.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery-validation\dist\additional-methods.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\css\site.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery\dist\jquery.slim.min.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery\dist\jquery.slim.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery\LICENSE.txt
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\favicon.ico
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\css\AuthStyle.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery\dist\jquery.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery\dist\jquery.min.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
+D:\DoAnCoSo (4)\DoAnCoSo (2)\DoAnCoSo\DoAnCoSo\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+wwwroot\css\AuthStyle.css
+wwwroot\css\site.css
+wwwroot\favicon.ico
+wwwroot\images\1fd14eae-2dc7-43fa-9f19-a116b4041d86.jfif
+wwwroot\images\4ce0a3bf-c6fc-42f6-aac7-60f6eeb8e65d.jpg
+wwwroot\images\70790d34-4a53-4f89-8366-ee4b7282d180.jpg
+wwwroot\images\86c9a9b7-32be-4523-9fc3-e000ed551b23.jpg
+wwwroot\images\c724b2bb-e716-465b-8e5f-d443b8c6d003.jpg
+wwwroot\images\Chat\chat_06bdc63a-83d8-4094-af9f-5c1eb0262051.png
+wwwroot\images\Chat\chat_2f994bc7-fa99-4b80-a609-71cf502e1b6a.png
+wwwroot\images\Chat\chat_323f463b-beaa-4dd4-b59b-46e90f59e3f2.png
+wwwroot\images\Chat\chat_38ca20c9-dcca-49ff-9d00-d1bca1855ca5.png
+wwwroot\images\Chat\chat_3e5e25da-3f5d-4085-93de-78467a7fc304.png
+wwwroot\images\Chat\chat_3e9cf7da-97c9-4636-82d2-efd48419c7a5.png
+wwwroot\images\Chat\chat_61567229-bfa4-43a6-8bc6-67fa8b855817.png
+wwwroot\images\Chat\chat_8da6fda3-0892-40d2-bc34-1b8ceb2ac680.png
+wwwroot\images\Chat\chat_a53a3365-1309-4ed1-82e4-e5e49311fcd5.png
+wwwroot\images\Chat\chat_b447bddd-44b6-4207-9c21-0fded2c57fee.jpg
+wwwroot\images\Chat\chat_b8e767c6-9074-44da-b41c-a9489d19d0a3.png
+wwwroot\images\dichvu\0057f087-5265-4463-ac6c-ff4644d85466.jpg
+wwwroot\images\dichvu\0399684f-e4e3-4d40-bb39-d20db13fc400.jpeg
+wwwroot\images\dichvu\16ae9ce7-0caa-4b05-8132-49b447a9afe1.jpg
+wwwroot\images\dichvu\1febc5fc-c2a3-46ea-b3b3-907176724a16.jpeg
+wwwroot\images\dichvu\21a9215b-36e0-44d4-bda5-6eeb4ba0b8e8.jpg
+wwwroot\images\dichvu\2b6187c0-74a7-428c-9f9b-bda4be09ae93.jpg
+wwwroot\images\dichvu\3a55f2f4-33d5-40b0-bc5c-9db660e8304b.jpeg
+wwwroot\images\dichvu\3bfc613a-ad09-48b1-9c16-d5b0b6d6ea65.jpeg
+wwwroot\images\dichvu\4240b109-73ff-464b-873b-8e71d1509ee0.jpeg
+wwwroot\images\dichvu\60b021d1-2b88-4bc9-9f05-fb5f1f258f55.jpeg
+wwwroot\images\dichvu\7b77aac3-eed2-45dc-9897-11e2f7119063.png
+wwwroot\images\dichvu\8b0cde95-3f6c-46e8-8220-d46278f6f5b9.png
+wwwroot\images\dichvu\96bfee88-bb6a-442e-a6cd-bcf6a56e49f5.jpg
+wwwroot\images\dichvu\af34ff65-90c5-49be-9a28-d7b1729de948.jpg
+wwwroot\images\dichvu\dbae4fb7-bb1b-4839-94cf-aaf74b9c298b.jpg
+wwwroot\images\dichvu\e742fac8-5103-4538-b293-972d7ab58637.jpg
+wwwroot\images\dichvu\ec310a75-85be-4bb0-8036-13c6bd166eca.jpg
+wwwroot\images\ead8bce9-773e-4497-9593-f19cc4e04b5d.jpg
+wwwroot\images\ktx_1.jpg
+wwwroot\images\ktx_2.jpg
+wwwroot\images\ktx_3.jpg
+wwwroot\images\rooms\148db667-ed09-4899-8cb8-c7fc32941a2c_Anh21.jpg
+wwwroot\images\rooms\23af073e-fb27-4286-acb4-7e19ce9b6c0f_hoa mai.jpg
+wwwroot\images\rooms\249f72ec-ddaf-4b79-85ab-16311433db26_Anh18.jpeg
+wwwroot\images\rooms\24a9b883-544b-452c-9ca7-0f040763e0a1_hoa phượng.jpg
+wwwroot\images\rooms\2885058e-38fd-4ea9-8ed1-9f11a5a89bbe_sen.jpg
+wwwroot\images\rooms\2d64155c-3353-49d9-bf57-f46be94dde4e_Anh5.webp
+wwwroot\images\rooms\30ed1d5e-18c6-4b00-b6a2-d5d253c67592_hehe.jfif
+wwwroot\images\rooms\34a33d74-fc1a-4ca5-93d4-050861a7ead4_OIP-removebg-preview.jpg
+wwwroot\images\rooms\3836328c-fcca-450f-87f1-accf513de2b1_OIP-removebg-preview.png
+wwwroot\images\rooms\462c1e26-b52b-49bf-84a4-820cddcb94c3_OIP-removebg-preview.jpg
+wwwroot\images\rooms\5984bf8e-06b4-44d6-b94b-6a395c539846_Anh22.webp
+wwwroot\images\rooms\603915ef-cd93-47ad-a77b-524218b8d3dd_Thanh_Giong.webp
+wwwroot\images\rooms\608a3e0c-eada-416f-bb1e-92d6a15ccac1_Anh8.jpg
+wwwroot\images\rooms\740f7038-6949-424e-82e4-a4d639f398d2_OIP-removebg-preview.png
+wwwroot\images\rooms\750e2b49-7bb6-424c-bbb4-45515dc272bf_Anh19.jpeg
+wwwroot\images\rooms\7552f50f-28d7-4641-bff2-85c410456d7e_Anh20.webp
+wwwroot\images\rooms\7c671d89-71d7-4db8-a611-8c70c3b7a0c5_Anh9.webp
+wwwroot\images\rooms\8176fe15-6f4b-4dc0-ada0-67bc1db01f0a_anh4.jpg
+wwwroot\images\rooms\87559cee-0a57-434b-ab6d-390c1e20725c_Anh14.jpg
+wwwroot\images\rooms\912954ba-bfe0-480a-a804-f8d61388d81d_OIP-removebg-preview.png
+wwwroot\images\rooms\93a12b3d-358c-4541-81ec-f1e829bfa59a_Anh16.jpg
+wwwroot\images\rooms\95d597b6-b04e-4503-9dca-cdf6c8c97f75_OIP-removebg-preview.jpg
+wwwroot\images\rooms\99853050-4759-4f63-bc51-addf5202ba54_Anh1.jpeg
+wwwroot\images\rooms\a3a99221-ec3a-4955-bdd6-3cae06c1aa69_hoa sen sịn.jfif
+wwwroot\images\rooms\b3e451f8-e810-478b-8325-956d7f5b94a7_Anh13.jpg
+wwwroot\images\rooms\b4eb9313-bbf1-4e11-8248-2848690fd2d0_hoa hương dương.jpg
+wwwroot\images\rooms\b519a44d-719c-41a3-943e-f368c2029975_desktop.jpg
+wwwroot\images\rooms\b63150c1-5531-4790-a938-1063ab92d355_gege.jpg
+wwwroot\images\rooms\bb832cc9-91d7-4b6f-8fc3-052923b30168_Screenshot 2025-11-16 165827.png
+wwwroot\images\rooms\c4c4e2e5-0b77-4b0e-b514-663d9a57e6af_sach8.jpg
+wwwroot\images\rooms\c84d8238-a107-48b5-b6f7-fea059541296_Trang_Quynh.jpg
+wwwroot\images\rooms\c888f1f3-b72d-42e1-a276-23c87f3c284d_ktx_2.jpg
+wwwroot\images\rooms\c92a6f4e-9ca2-431d-a748-65db7a36d044_Anh20.webp
+wwwroot\images\rooms\cb4eb7ce-6438-491b-975a-4e0900be81dd_Anh15.webp
+wwwroot\images\rooms\ccae98c3-ea1b-47cf-83a8-e8dbe52bf602_hoa giấy.jpg
+wwwroot\images\rooms\ce08f632-6416-46f2-a5ed-6c8c6d6d1805_Anh16.jpg
+wwwroot\images\rooms\cf66d2a7-dac2-4701-9801-b6b489944558_desktop.jpg
+wwwroot\images\rooms\d2c5e683-c032-445e-a387-4ce22b3393e9_Doremon.jpg
+wwwroot\images\rooms\d51f0873-8a21-4d04-a81e-09b8fd1149fc_Anh5.webp
+wwwroot\images\rooms\d5dda862-06f4-4a49-9a2e-9ed18a86bc2e_hoa hong.jfif
+wwwroot\images\rooms\d6e8d9ae-6ed2-4832-8966-bec72e50edbd_OIP-removebg-preview.png
+wwwroot\images\rooms\d932e7c0-2633-4d71-b546-a739316985c3_Anh11.webp
+wwwroot\images\rooms\de262c64-4a91-4be8-a25c-b9a064b6e433_anh-messi-chup-gan.jpg
+wwwroot\images\rooms\de687a46-8705-4413-8093-1bf2981ca300_OIP-removebg-preview.png
+wwwroot\images\rooms\e4824b1a-f34b-4d48-9756-86c32ea70c7a_OIP-removebg-preview.jpg
+wwwroot\images\rooms\e694fb7a-01be-4f83-bc7b-e1cc86d387cf_OIP-removebg-preview.jpg
+wwwroot\images\rooms\ef4f1178-3781-45c8-a878-c6f34c06c800_hoa sứ.jfif
+wwwroot\images\rooms\f5eceedf-e598-40bb-b30f-de4fd357fa7a_Anh4.png
+wwwroot\images\rooms\fa9b4015-7cc0-472f-917b-1e60a6dc5127_gege.jpg
+wwwroot\js\site.js
+wwwroot\lib\bootstrap\dist\css\bootstrap.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+wwwroot\lib\bootstrap\LICENSE
+wwwroot\lib\jquery\dist\jquery.js
+wwwroot\lib\jquery\dist\jquery.min.js
+wwwroot\lib\jquery\dist\jquery.min.map
+wwwroot\lib\jquery\dist\jquery.slim.js
+wwwroot\lib\jquery\dist\jquery.slim.min.js
+wwwroot\lib\jquery\dist\jquery.slim.min.map
+wwwroot\lib\jquery\LICENSE.txt
+wwwroot\lib\jquery-validation\dist\additional-methods.js
+wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+wwwroot\lib\jquery-validation\dist\jquery.validate.js
+wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+wwwroot\lib\jquery-validation\LICENSE.md
+wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
+wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
+wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt

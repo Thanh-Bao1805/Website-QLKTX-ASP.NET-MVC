@@ -1,0 +1,645 @@
+﻿@model IEnumerable<DoAnCoSo.Models.Phong>
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<div class="hero-section position-relative">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/images/ktx_2.jpg" class="d-block w-100" alt="KTX">
+                <div class="carousel-caption text-start">
+                    <h1 class="display-4 fw-bold text-uppercase">Ký túc xá sinh viên</h1>
+                    <p class="lead">Ngôi nhà thứ hai của bạn - An toàn, Tiện nghi và Hiện đại</p>
+                    <div class="mt-4">
+                        <a href="#available-rooms" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-home me-2"></i>Xem phòng trống
+                        </a>
+                        <a href="#facilities" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-info-circle me-2"></i>Tìm hiểu thêm
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/ktx_1.jpg" class="d-block w-100" alt="Tiện ích">
+                <div class="carousel-caption text-start">
+                    <h1 class="display-4 fw-bold">Tiện ích hiện đại</h1>
+                    <p class="lead">Đầy đủ tiện nghi sinh hoạt, học tập và giải trí</p>
+                    <a href="#facilities" class="btn btn-primary btn-lg">
+                        <i class="fas fa-star me-2"></i>Khám phá ngay
+                    </a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/ktx_3.jpg" class="d-block w-100" alt="Cộng đồng">
+                <div class="carousel-caption text-start">
+                    <h1 class="display-4 fw-bold">Cộng đồng sinh viên</h1>
+                    <p class="lead">Môi trường năng động, thân thiện và đoàn kết</p>
+                    <a href="#community" class="btn btn-primary btn-lg">
+                        <i class="fas fa-users me-2"></i>Tham gia ngay
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="container">
+    <section class="quick-intro py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="intro-item text-center">
+                    <div class="icon-circle mb-3">
+                        <i class="fas fa-shield-alt fa-bounce"></i>
+                    </div>
+                    <h4>An ninh 24/7</h4>
+                    <p>Hệ thống an ninh chặt chẽ, bảo vệ trực 24/7</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="intro-item text-center">
+                    <div class="icon-circle mb-3">
+                        <i class="fas fa-home fa-beat"></i>
+                    </div>
+                    <h4>Tiện nghi đầy đủ</h4>
+                    <p>Trang bị đầy đủ tiện nghi sinh hoạt cơ bản</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="intro-item text-center">
+                    <div class="icon-circle mb-3">
+                        <i class="fas fa-location-dot fa-bounce"></i>
+                    </div>
+                    <h4>Vị trí thuận lợi</h4>
+                    <p>Gần trường học, siêu thị và các tiện ích</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="statistics py-5">
+        <div class="section-title text-center mb-5">
+            <h6 class="text-primary text-uppercase fw-bold">Thống kê</h6>
+            <h2 class="fw-bold">Con số ấn tượng</h2>
+        </div>
+        <div class="row g-4 text-center">
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <i class="fas fa-building fa-3x text-primary mb-3"></i>
+                    <h3 class="counter" data-target="5">0</h3>
+                    <p class="text-muted">Tòa nhà</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <i class="fas fa-door-open fa-3x text-success mb-3"></i>
+                    <h3 class="counter" data-target="200">0</h3>
+                    <p class="text-muted">Phòng ở</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <i class="fas fa-users fa-3x text-info mb-3"></i>
+                    <h3 class="counter" data-target="1000">0</h3>
+                    <p class="text-muted">Sinh viên</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <i class="fas fa-smile-beam fa-3x text-warning mb-3"></i>
+                    <h3 class="counter" data-target="95">0</h3>
+                    <p class="text-muted">% Hài lòng</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="facilities" class="facilities py-5">
+        <div class="section-title text-center mb-5">
+            <h6 class="text-primary text-uppercase fw-bold">Tiện ích</h6>
+            <h2 class="fw-bold">Cuộc sống tiện nghi</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="card h-100 border-0 shadow-sm facility-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-wifi fa-3x text-primary mb-3"></i>
+                        <h4>Internet</h4>
+                        <p>Wifi tốc độ cao phủ sóng toàn KTX</p>
+                        <ul class="list-unstyled mt-3">
+                            <li><i class="fas fa-check text-success me-2"></i>Tốc độ cao</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Phủ sóng 100%</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Ổn định 24/7</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card h-100 border-0 shadow-sm facility-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-dumbbell fa-3x text-success mb-3"></i>
+                        <h4>Phòng Gym</h4>
+                        <p>Trang thiết bị hiện đại, chuyên nghiệp</p>
+                        <ul class="list-unstyled mt-3">
+                            <li><i class="fas fa-check text-success me-2"></i>Máy móc hiện đại</li>
+                            <li><i class="fas fa-check text-success me-2"></i>HLV hướng dẫn</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Mở cửa 6h-22h</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card h-100 border-0 shadow-sm facility-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-book fa-3x text-info mb-3"></i>
+                        <h4>Phòng học</h4>
+                        <p>Không gian học tập yên tĩnh, tiện nghi</p>
+                        <ul class="list-unstyled mt-3">
+                            <li><i class="fas fa-check text-success me-2"></i>Mở cửa 24/7</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Điều hòa</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Bàn học cá nhân</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card h-100 border-0 shadow-sm facility-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-utensils fa-3x text-danger mb-3"></i>
+                        <h4>Căng tin</h4>
+                        <p>Đa dạng món ăn, giá cả sinh viên</p>
+                        <ul class="list-unstyled mt-3">
+                            <li><i class="fas fa-check text-success me-2"></i>Đa dạng món</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Giá sinh viên</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Vệ sinh an toàn</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="available-rooms" class="available-rooms py-5">
+        <div class="section-title text-center mb-5">
+            <h6 class="text-primary text-uppercase fw-bold">Phòng trống</h6>
+            <h2 class="fw-bold">Chọn phòng phù hợp</h2>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <form id="searchForm" class="row g-3">
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control" id="searchTerm" name="searchTerm"
+                                   placeholder="Tìm kiếm phòng..." value="@ViewBag.SearchTerm">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-building"></i></span>
+                            <select class="form-select" id="toaFilter" name="toaFilter">
+                                <option value="">Tất cả các tòa</option>
+                                @if (ViewBag.AllToas != null)
+                                {
+                                    @foreach (var toa in ViewBag.AllToas)
+                                    {
+                                        if (ViewBag.ToaFilter == toa.MaToa)
+                                        {
+                                            <option value="@toa.MaToa" selected>@toa.TenToa</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@toa.MaToa">@toa.TenToa</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+                            <select class="form-select" id="genderFilter" name="genderFilter">
+                                <option value="">Tất cả</option>
+                                <option value="Nam" selected="@(ViewBag.GenderFilter == "Nam")">Nam</option>
+                                <option value="Nữ" selected="@(ViewBag.GenderFilter == "Nữ")">Nữ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="number" class="form-control" id="minPrice" name="minPrice" 
+                                   placeholder="Giá tối thiểu" value="@ViewBag.MinPrice" min="0" step="10000">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="number" class="form-control" id="maxPrice" name="maxPrice" 
+                                   placeholder="Giá tối đa" value="@ViewBag.MaxPrice" min="0" step="10000">
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-sort"></i></span>
+                            <select class="form-select" id="sortOrder" name="sortOrder">
+                                <option value="">Sắp xếp...</option>
+                                <option value="price_asc" selected="@(ViewBag.SortOrder == "price_asc")">Giá ↑</option>
+                                <option value="price_desc" selected="@(ViewBag.SortOrder == "price_desc")">Giá ↓</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div id="roomListContainer">
+            @await Html.PartialAsync("_RoomList", Model)
+        </div>
+    </section>
+
+    <section class="contact-info py-5">
+        <div class="section-title text-center mb-5">
+            <h6 class="text-primary text-uppercase fw-bold">Liên hệ</h6>
+            <h2 class="fw-bold">Thông tin liên hệ</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="contact-card h-100">
+                    <div class="card-icon">
+                        <i class="fas fa-location-dot fa-beat"></i>
+                    </div>
+                    <h4>Địa chỉ</h4>
+                    <p>97 Man Thiện, P. Hiệp Phú<br>TP. Thủ Đức, TP.HCM</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-card h-100">
+                    <div class="card-icon">
+                        <i class="fas fa-headset fa-shake"></i>
+                    </div>
+                    <h4>Điện thoại</h4>
+                    <p>Văn phòng: (028) 3736 6677<br>Hotline: 0909 123 456</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-card h-100">
+                    <div class="card-icon">
+                        <i class="fas fa-business-time fa-bounce"></i>
+                    </div>
+                    <h4>Giờ làm việc</h4>
+                    <p>Thứ 2 - Thứ 6: 7:30 - 17:00<br>Thứ 7: 8:00 - 12:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+
+    /* Hero Section */
+        .hero-section {
+                margin-top: -1rem;
+
+    }
+
+        .carousel-item {
+                height: 700px;
+
+    }
+
+            .carousel-item img {
+                    object-fit: cover;
+                    height: 100%;
+                    filter: brightness(0.7);
+
+        }
+
+        .carousel-caption {
+                background: rgba(0, 0, 0, 0.4);
+                padding: 2rem;
+                border-radius: 15px;
+                max-width: 600px;
+                bottom: 50%;
+                transform: translateY(50%);
+                left: 10%;
+                text-align: left;
+
+    }
+
+        .carousel-indicators {
+                bottom: 2rem;
+
+    }
+
+            .carousel-indicators button {
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    margin: 0 5px;
+
+        }
+
+
+    /* Quick Intro */
+        .intro-item {
+                padding: 2rem;
+                transition: transform 0.3s ease;
+
+    }
+
+        .intro-item:hover {
+                transform: translateY(-10px);
+
+    }
+
+        .icon-circle {
+                width: 80px;
+                height: 80px;
+                background: #f8f9fa;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto;
+                font-size: 2rem;
+                color: var(--bs-primary);
+                transition: all 0.3s ease;
+
+    }
+
+        .intro-item:hover .icon-circle {
+                background: var(--bs-primary);
+                color: white;
+
+    }
+
+
+    /* Statistics */
+        .stat-item {
+                padding: 2rem;
+                border-radius: 15px;
+                background: #fff;
+                box-shadow: 0 0 25px rgba(0,0,0,0.05);
+                transition: transform 0.3s ease;
+
+    }
+
+        .stat-item:hover {
+                transform: translateY(-10px);
+
+    }
+
+        .counter {
+                font-size: 2.5rem;
+                font-weight: bold;
+                color: #333;
+                position: relative;
+
+    }
+
+            .counter::after {
+                    content: "+";
+                    font-size: 1.5rem;
+                    position: absolute;
+                    margin-left: 5px;
+
+        }
+
+
+    /* Facilities */
+        .facility-card {
+                border-radius: 15px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+
+    }
+
+        .facility-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+
+    }
+
+        .facility-card ul li {
+                margin-bottom: 0.5rem;
+
+    }
+
+
+    /* Room Cards */
+        .room-card {
+                border-radius: 15px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+
+    }
+
+        .room-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+
+    }
+
+        .room-info {
+                background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+                padding: 1rem;
+
+    }
+
+        .room-features {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+
+    }
+
+            .room-features .badge {
+                    padding: 0.5rem 1rem;
+                    font-weight: normal;
+
+        }
+
+
+    /* Contact Cards */
+        .contact-card {
+                text-align: center;
+                padding: 2rem;
+                background: #fff;
+                border-radius: 15px;
+                box-shadow: 0 0 25px rgba(0,0,0,0.05);
+                transition: all 0.3s ease;
+
+    }
+
+        .contact-card:hover {
+                transform: translateY(-10px);
+
+    }
+
+        .card-icon {
+                width: 70px;
+                height: 70px;
+                background: var(--bs-primary);
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                margin: 0 auto 1.5rem;
+
+    }
+
+
+    /* Section Titles */
+        .section-title {
+                margin-bottom: 3rem;
+
+    }
+
+        .section-title h6 {
+                letter-spacing: 2px;
+                margin-bottom: 0.5rem;
+
+    }
+
+        .section-title h2 {
+                position: relative;
+                padding-bottom: 1rem;
+
+    }
+
+            .section-title h2::after {
+                    content: "";
+                    position: absolute;
+                    left: 50%;
+                    bottom: 0;
+                    transform: translateX(-50%);
+                    width: 50px;
+                    height: 3px;
+                    background: var(--bs-primary);
+
+        }
+</style>
+
+@section Scripts {
+    <script>
+        // Animation for statistics
+        document.addEventListener('DOMContentLoaded', function() {
+            const counters = document.querySelectorAll('.counter');
+
+            const startCounting = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        let count = 0;
+                        const speed = 2000 / target; // 2 seconds duration
+
+                        const updateCount = () => {
+                            if (count < target) {
+                                count += 1;
+                                counter.innerText = count;
+                                setTimeout(updateCount, speed);
+                            }
+                        };
+
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(startCounting, {
+                threshold: 0.5
+            });
+
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+        });
+
+        $(document).ready(function () {
+            // Kích hoạt thủ công Carousel (phòng trường hợp data-bs-ride không hoạt động)
+            var heroCarousel = new bootstrap.Carousel(document.getElementById('heroCarousel'), {
+                interval: 3000 // Tự động chuyển slide sau 3000ms (3 giây)
+            });
+
+
+            function loadRooms(page = 1) {
+                var formData = {
+                    searchTerm: $('#searchTerm').val(),
+                    toaFilter: $('#toaFilter').val(),
+                    genderFilter: $('#genderFilter').val(),
+                    sortOrder: $('#sortOrder').val(),
+                    minPrice: $('#minPrice').val() ? parseFloat($('#minPrice').val()) : null,
+                    maxPrice: $('#maxPrice').val() ? parseFloat($('#maxPrice').val()) : null,
+                    page: page
+                };
+
+                // Loại bỏ các giá trị null hoặc rỗng
+                Object.keys(formData).forEach(key => {
+                    if (formData[key] === null || formData[key] === '' || formData[key] === undefined) {
+                        delete formData[key];
+                    }
+                });
+
+                $.get('@Url.Action("Index")', formData, function (data) {
+                    $('#roomListContainer').html(data);
+
+                    // Scroll to room list if not on first page
+                    if (page > 1) {
+                        $('html, body').animate({
+                            scrollTop: $('#available-rooms').offset().top - 100
+                        }, 500);
+                    }
+                });
+            }
+
+            // Xử lý sự kiện thay đổi các điều kiện lọc
+            $('#searchForm select, #minPrice, #maxPrice').on('change', function() {
+                loadRooms(1);
+            });
+
+            // Xử lý sự kiện nhập tìm kiếm với debounce
+            var searchTimeout;
+            $('#searchTerm').on('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(function() {
+                    loadRooms(1);
+                }, 500);
+            });
+
+            // Xử lý sự kiện nhập giá với debounce
+            var priceTimeout;
+            $('#minPrice, #maxPrice').on('input', function() {
+                clearTimeout(priceTimeout);
+                priceTimeout = setTimeout(function() {
+                    loadRooms(1);
+                }, 800);
+            });
+
+            // Xử lý nút phân trang
+            $(document).on('click', '.load-more', function() {
+                var page = $(this).data('page');
+                loadRooms(page);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,261 @@
+﻿@model DoAnCoSo.Models.DangKyO
+
+@{
+    ViewData["Title"] = "Đăng ký ở KTX";
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white py-3">
+            <h2 class="mb-0 fw-bold">
+                <i class="fas fa-user-plus me-2"></i>@ViewData["Title"]
+            </h2>
+        </div>
+
+        <div class="card-body px-4 py-4">
+
+            <form asp-action="Add" method="post" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <!-- PHẦN 1: THÔNG TIN CƠ BẢN -->
+                <div class="section-box mb-4 p-3 border rounded bg-light">
+                    <h4 class="text-primary fw-bold mb-3">
+                        <i class="fas fa-info-circle me-1"></i> Thông tin cơ bản
+                    </h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="MaDK" class="form-control" value="@ViewBag.MaDK" readonly />
+                                <label>Mã đăng ký</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="MSSV" class="form-control" placeholder="Nhập MSSV" required />
+                                <label>Mã số sinh viên</label>
+                            </div>
+                            <span asp-validation-for="MSSV" class="text-danger small"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHẦN 2: THÔNG TIN CÁ NHÂN -->
+                <div class="section-box mb-4 p-3 border rounded bg-light">
+                    <h4 class="text-primary fw-bold mb-3">
+                        <i class="fas fa-user me-1"></i> Thông tin cá nhân
+                    </h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="HoTen" class="form-control" required />
+                                <label>Họ và tên</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input asp-for="NgaySinh" class="form-control" type="date" required />
+                                <label>Ngày sinh</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <select asp-for="GioiTinh" class="form-select" required>
+                                    <option value="">-- Chọn giới tính --</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                                <label>Giới tính</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="SDT"
+                                       class="form-control"
+                                       inputmode="numeric"
+                                       pattern="[0-9]{10}"
+                                       maxlength="10"
+                                       minlength="10"
+                                       required />
+                                <label>Số điện thoại (10 số)</label>
+                            </div>
+                            <span asp-validation-for="SDT" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="CCCD"
+                                       class="form-control"
+                                       inputmode="numeric"
+                                       pattern="[0-9]{12}"
+                                       maxlength="12"
+                                       minlength="12"
+                                       required />
+                                <label>CCCD/CMND (12 số)</label>
+                            </div>
+                            <span asp-validation-for="CCCD" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <input asp-for="Email" class="form-control" type="email" required />
+                                <label>Email</label>
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHẦN 3: THÔNG TIN HỌC TẬP -->
+                <div class="section-box mb-4 p-3 border rounded bg-light">
+                    <h4 class="text-primary fw-bold mb-3">
+                        <i class="fas fa-graduation-cap me-1"></i> Thông tin học tập
+                    </h4>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="Lop" class="form-control" required />
+                                <label>Lớp</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="Khoa" class="form-control" required />
+                                <label>Khoa</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <input asp-for="DiaChiThuongTru" class="form-control" required />
+                                <label>Địa chỉ thường trú</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHẦN 4: THÔNG TIN ĐĂNG KÝ PHÒNG -->
+                <div class="section-box mb-4 p-3 border rounded bg-light">
+                    <h4 class="text-primary fw-bold mb-3">
+                        <i class="fas fa-home me-1"></i> Thông tin đăng ký phòng
+                    </h4>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="NgayBatDauO" class="form-control"
+                                       type="date" id="ngayBatDauO"
+                                       value="@DateTime.Now.ToString("yyyy-MM-dd")"
+                                       onchange="updateNgayKetThuc()" required />
+                                <label>Ngày bắt đầu ở</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="NgayKetThucO" class="form-control"
+                                       type="date" id="ngayKetThucO" readonly />
+                                <label>Ngày kết thúc (12 tháng)</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                @if (ViewBag.MaPhong != null)
+                                {
+                                    <input type="hidden" asp-for="MaPhong" value="@ViewBag.MaPhong" />
+                                    <input type="text" class="form-control" value="Phòng @ViewBag.MaPhong" readonly />
+                                    <label>Phòng đã chọn</label>
+                                }
+                                else
+                                {
+                                    <select asp-for="MaPhong" class="form-select" asp-items="ViewBag.PhongList" required>
+                                        <option value="">-- Chọn phòng --</option>
+                                    </select>
+                                    <label>Chọn phòng</label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- XÁC NHẬN THÔNG TIN -->
+                <div class="section-box mb-4 p-3 border rounded bg-light">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="DaXacNhan" id="chkXacNhan"
+                               value="true" @(ViewBag.DaXacNhanChecked == true ? "checked" : "") required>
+                        <label class="form-check-label fw-semibold" for="chkXacNhan">
+                            Tôi đã đọc kỹ và khai đúng thông tin, nếu sai sót tôi chịu mọi hậu quả.
+                        </label>
+                        <div class="text-danger small">
+                            @Html.ValidationMessage("DaXacNhan", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NÚT -->
+                <div class="text-center mt-4">
+                    <button id="btnSubmit" type="submit" class="btn btn-primary btn-lg px-5 me-2" disabled>
+                        <i class="fas fa-save me-2"></i>Đăng ký
+                    </button>
+
+                    <a asp-action="Index" class="btn btn-secondary btn-lg px-5">
+                        <i class="fas fa-arrow-left me-2"></i>Quay lại
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .section-box {
+        background: #f8f9fa;
+    }
+
+    .form-floating > label {
+        font-weight: 500;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    h4 {
+        font-size: 1.25rem;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function updateNgayKetThuc() {
+            var ngayBatDau = new Date(document.getElementById('ngayBatDauO').value);
+            var ngayKetThuc = new Date(ngayBatDau);
+            ngayKetThuc.setMonth(ngayKetThuc.getMonth() + 12);
+            document.getElementById('ngayKetThucO').value = ngayKetThuc.toISOString().split('T')[0];
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateNgayKetThuc();
+
+            const chkXacNhan = document.getElementById('chkXacNhan');
+            const btnSubmit = document.getElementById('btnSubmit');
+
+            function toggleSubmit() {
+                btnSubmit.disabled = !chkXacNhan.checked;
+            }
+
+            chkXacNhan.addEventListener('change', toggleSubmit);
+            toggleSubmit();
+        });
+    </script>
+}

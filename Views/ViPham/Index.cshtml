@@ -1,0 +1,78 @@
+﻿@model IEnumerable<DoAnCoSo.Models.ViPham>
+@{
+    ViewData["Title"] = "Danh sách vi phạm";
+}
+
+<div class="container-fluid px-4">
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-exclamation-triangle me-1"></i>
+                @ViewData["Title"]
+            </div>
+            @if (User.IsInRole("Admin"))
+                    {
+            <a asp-action="Add" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i>Thêm vi phạm
+            </a>
+            }
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="violationsTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã vi phạm</th>
+                            <th>Ngày vi phạm</th>
+                            <th>Sinh viên</th>
+                            <th>Nội quy</th>
+                            <th style="width: 200px;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.MaViPham</td>
+                                <td>@item.NgayViPham.ToString("dd/MM/yyyy")</td>
+                                <td>@item.SinhVien?.HoTen</td>
+                                <td>@item.NoiQuy?.NoiDung</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Display" asp-route-id="@item.MaViPham" 
+                                           class="btn btn-info btn-sm" title="Xem chi tiết">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                 @if (User.IsInRole("Admin"))
+                    {
+                                        <a asp-action="Update" asp-route-id="@item.MaViPham" 
+                                           class="btn btn-warning btn-sm" title="Cập nhật">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.MaViPham" 
+                                           class="btn btn-danger btn-sm" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#violationsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/vi.json'
+                }
+            });
+        });
+    </script>
+}

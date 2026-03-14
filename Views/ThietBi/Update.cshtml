@@ -1,0 +1,41 @@
+﻿@model DoAnCoSo.Models.ThietBi
+@{
+    ViewData["Title"] = "Cập nhật thiết bị";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Update" method="post">
+    <!-- Truyền id bằng query string hoặc route; thường form action sẽ include id nếu route setup như /ThietBi/Update/{id} -->
+    <input type="hidden" name="id" value="@Model.MaThietBi" />
+
+    <div class="form-group">
+        <label>Mã thiết bị</label>
+        <input class="form-control" value="@Model.MaThietBi" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TenThietBi"></label>
+        <input asp-for="TenThietBi" class="form-control" />
+        <span asp-validation-for="TenThietBi" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Loai"></label>
+        <input asp-for="Loai" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MoTa"></label>
+        <textarea asp-for="MoTa" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

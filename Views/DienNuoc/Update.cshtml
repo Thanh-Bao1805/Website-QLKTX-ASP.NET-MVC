@@ -1,0 +1,223 @@
+﻿@model DoAnCoSo.Models.DienNuoc
+@{
+    ViewData["Title"] = "Cập nhật Điện Nước";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-warning text-dark py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-edit me-2"></i>@ViewData["Title"]
+                </h5>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Quay lại
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Hiển thị thông báo -->
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i> @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <form asp-action="Update" method="post" id="dienNuocForm">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-4" role="alert"></div>
+
+                <div class="row g-4">
+                    <!-- Thông tin cơ bản -->
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3 text-warning">
+                                    <i class="fas fa-info-circle me-2"></i>Thông tin cơ bản
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label fw-bold">Mã điện nước</label>
+                                            <input asp-for="MaDN" class="form-control bg-light" readonly />
+                                            <small class="form-text text-muted">Mã điện nước không thể thay đổi</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="NgayGhi" class="form-label fw-bold">Ngày ghi *</label>
+                                            <input asp-for="NgayGhi" type="date" class="form-control" required />
+                                            <span asp-validation-for="NgayGhi" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="MaPhong" class="form-label fw-bold">Phòng *</label>
+                                            <select asp-for="MaPhong" class="form-select" required>
+                                                <option value="">-- Chọn phòng --</option>
+                                                @foreach (var phong in ViewBag.Phongs)
+                                                {
+                                                    <option value="@phong.Value" selected="@(phong.Value == Model.MaPhong)">@phong.Text</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="MaPhong" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông số điện nước -->
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3 text-success">
+                                    <i class="fas fa-tachometer-alt me-2"></i>Thông số điện nước
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="SoDien" class="form-label fw-bold">Số điện (kWh) *</label>
+                                            <input asp-for="SoDien" type="number" class="form-control" min="0" step="1" required
+                                                   onchange="calculateTotal()" />
+                                            <span asp-validation-for="SoDien" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="DonGiaDien" class="form-label fw-bold">Đơn giá điện (VNĐ) *</label>
+                                            <div class="input-group">
+                                                <input asp-for="DonGiaDien" type="number" class="form-control" min="0" step="100" required
+                                                       onchange="calculateTotal()" />
+                                                <span class="input-group-text">VNĐ</span>
+                                            </div>
+                                            <span asp-validation-for="DonGiaDien" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="SoNuoc" class="form-label fw-bold">Số nước (m³) *</label>
+                                            <input asp-for="SoNuoc" type="number" class="form-control" min="0" step="1" required
+                                                   onchange="calculateTotal()" />
+                                            <span asp-validation-for="SoNuoc" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="DonGiaNuoc" class="form-label fw-bold">Đơn giá nước (VNĐ) *</label>
+                                            <div class="input-group">
+                                                <input asp-for="DonGiaNuoc" type="number" class="form-control" min="0" step="100" required
+                                                       onchange="calculateTotal()" />
+                                                <span class="input-group-text">VNĐ</span>
+                                            </div>
+                                            <span asp-validation-for="DonGiaNuoc" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tổng tiền -->
+                    <div class="col-12">
+                        <div class="card bg-warning text-dark">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-calculator me-2"></i>Tổng tiền
+                                </h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label fw-bold">Tổng tiền điện nước</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control fw-bold fs-5 text-success" id="tongTienDisplay"
+                                                       value="@Model.TongTien.ToString("N0") VNĐ" readonly />
+                                                <input type="hidden" asp-for="TongTien" id="hiddenTongTien" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-muted small">
+                                            <div>Tổng tiền = (Số điện × Đơn giá điện) + (Số nước × Đơn giá nước)</div>
+                                            <div class="mt-1">
+                                                <strong>Chi tiết:</strong><br>
+                                                Điện: @Model.SoDien kWh × @Model.DonGiaDien.ToString("N0") VNĐ = <span class="text-success">@((Model.SoDien * Model.DonGiaDien).ToString("N0")) VNĐ</span><br>
+                                                Nước: @Model.SoNuoc m³ × @Model.DonGiaNuoc.ToString("N0") VNĐ = <span class="text-success">@((Model.SoNuoc * Model.DonGiaNuoc).ToString("N0")) VNĐ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-warning px-4">
+                        <i class="fas fa-save me-2"></i>Cập nhật
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Tính tổng tiền ban đầu
+            calculateTotal();
+        });
+
+        // Hàm tính tổng tiền
+        function calculateTotal() {
+            var soDien = parseFloat($('#SoDien').val()) || 0;
+            var donGiaDien = parseFloat($('#DonGiaDien').val()) || 0;
+            var soNuoc = parseFloat($('#SoNuoc').val()) || 0;
+            var donGiaNuoc = parseFloat($('#DonGiaNuoc').val()) || 0;
+
+            var tongTien = (soDien * donGiaDien) + (soNuoc * donGiaNuoc);
+
+            // Hiển thị tổng tiền định dạng VNĐ
+            $('#tongTienDisplay').val(formatCurrency(tongTien) + ' VNĐ');
+            $('#hiddenTongTien').val(tongTien);
+        }
+
+        // Hàm định dạng tiền tệ
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN').format(amount);
+        }
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .card-title {
+            font-weight: 600;
+        }
+
+        #tongTienDisplay {
+            background-color: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .bg-light {
+            background-color: #f8f9fa !important;
+        }
+    </style>
+}

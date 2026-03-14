@@ -1,0 +1,117 @@
+﻿@model DoAnCoSo.Models.DichVu
+
+@{
+    ViewData["Title"] = "Cập nhật dịch vụ";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-edit me-2"></i>@ViewData["Title"]
+                </h5>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Quay lại
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <form asp-action="Update" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="MaDV" class="form-label">Mã dịch vụ</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                                <input asp-for="MaDV" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="TenDichVu" class="form-label">Tên dịch vụ <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                                <input asp-for="TenDichVu" class="form-control" required />
+                            </div>
+                            <span asp-validation-for="TenDichVu" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="DonGia" class="form-label">Đơn giá (VNĐ) <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-money-bill"></i></span>
+                                <input asp-for="DonGia" type="number" class="form-control" step="1000" min="0" required />
+                                <span class="input-group-text">VNĐ</span>
+                            </div>
+                            <span asp-validation-for="DonGia" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label asp-for="MoTa" class="form-label">Mô tả dịch vụ</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+                                <textarea asp-for="MoTa" class="form-control" rows="4"></textarea>
+                            </div>
+                            <span asp-validation-for="MoTa" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Hình ảnh dịch vụ</label>
+                            @if (!string.IsNullOrEmpty(Model.HinhAnh))
+                            {
+                                <div class="mb-2">
+                                    <img src="@Model.HinhAnh" alt="Hình ảnh dịch vụ" class="img-fluid rounded" style="max-height:120px;object-fit:cover;" />
+                                </div>
+                            }
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                <input type="file" name="HinhAnhFile" class="form-control" accept="image/*" />
+                            </div>
+                            <small class="text-muted">Để trống nếu không muốn thay đổi hình ảnh</small>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <hr class="my-4">
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Lưu thay đổi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+@section Styles {
+    <style>
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .input-group-text {
+            background-color: #e9ecef;
+        }
+        .img-fluid {
+            border: 1px solid #dee2e6;
+            padding: 0.25rem;
+        }
+    </style>
+}

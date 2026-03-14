@@ -1,0 +1,412 @@
+﻿@model DoAnCoSo.Models.HoaDon
+@{
+    ViewData["Title"] = "Thêm hóa đơn";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-plus me-2"></i>@ViewData["Title"]
+                </h5>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Quay lại
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <form asp-action="AddConfirmed" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-4" role="alert"></div>
+                
+                <div class="row g-4">
+                    <!-- Thông tin cơ bản -->
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-info-circle me-2"></i>Thông tin cơ bản
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="MaHoaDon" class="form-label">Mã hóa đơn</label>
+                                            <input asp-for="MaHoaDon" class="form-control" readonly />
+                                            <small class="text-muted">
+                                                <i class="fas fa-info-circle me-1"></i>Mã hóa đơn được tự động tạo
+                                            </small>
+                                            <span asp-validation-for="MaHoaDon" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="NgayLap" class="form-label">Ngày lập</label>
+                                            <input asp-for="NgayLap" class="form-control" type="date" required />
+                                            <span asp-validation-for="NgayLap" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="LoaiChiPhi" class="form-label">Loại hóa đơn</label>
+                                            <select asp-for="LoaiChiPhi" class="form-select" onchange="updateFields()" required>
+                                                <option value="">-- Chọn loại hóa đơn --</option>
+                                                <option value="HoaDonDienNuoc">Hóa đơn điện nước</option>
+                                                <option value="HoaDonDichVu">Hóa đơn dịch vụ</option>
+                                            </select>
+                                            <span asp-validation-for="LoaiChiPhi" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin nhân viên -->
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-user-tie me-2"></i>Thông tin nhân viên
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="MaNV" class="form-label">Nhân viên tạo</label>
+                                            <select asp-for="MaNV" class="form-select" onchange="updateNhanVienInfo()" required>
+                                                <option value="">-- Chọn nhân viên --</option>
+                                                @foreach (var nv in ViewBag.NhanVienList)
+                                                {
+                                                    <option value="@nv.MaNV" data-ten="@nv.HoTen" data-sdt="@nv.SDT">
+                                                        @nv.HoTen - @nv.MaNV
+                                                    </option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="MaNV" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="nhanVienInfo" class="mt-3" style="display: none;">
+                                            <div class="alert alert-info mb-0">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-info-circle me-2"></i>
+                                                    <div>
+                                                        <strong class="d-block" id="nhanVienTen"></strong>
+                                                        <small class="text-muted" id="nhanVienSDT"></small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin sinh viên -->
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-user-graduate me-2"></i>Thông tin sinh viên
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="MaSV" class="form-label">Sinh viên</label>
+                                            <select asp-for="MaSV" class="form-select" onchange="updateSinhVienInfo()" required>
+                                                <option value="">-- Chọn sinh viên --</option>
+                                                @foreach (var sv in ViewBag.SinhVienList)
+                                                {
+                                                    <option value="@sv.MaSV" data-ten="@sv.HoTen" data-lop="@sv.Lop">
+                                                        @sv.HoTen - @sv.MaSV
+                                                    </option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="MaSV" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="sinhVienInfo" class="mt-3" style="display: none;">
+                                            <div class="alert alert-info mb-0">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-info-circle me-2"></i>
+                                                    <div>
+                                                        <strong class="d-block" id="sinhVienTen"></strong>
+                                                        <small class="text-muted" id="sinhVienLop"></small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin chi tiết -->
+                    <div id="dienNuocSection" class="col-12" style="display: none;">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-bolt me-2"></i>Thông tin điện nước
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="MaDN" class="form-label">Mã điện nước</label>
+                                            <select asp-for="MaDN" class="form-select" onchange="updateTongTien()">
+                                                <option value="">-- Chọn mã điện nước --</option>
+                                                @foreach (var dn in ViewBag.DienNuocList)
+                                                {
+                                                    <option value="@dn.MaDN" 
+                                                            data-sodien="@dn.SoDien"
+                                                            data-sonuoc="@dn.SoNuoc"
+                                                            data-tongtien="@dn.TongTien">
+                                                        @dn.MaDN - @dn.NgayGhi.ToString("dd/MM/yyyy")
+                                                    </option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="MaDN" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="dienNuocInfo" class="mt-3" style="display: none;">
+                                            <div class="alert alert-info mb-0">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Số điện</small>
+                                                        <strong id="soDien"></strong>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Số nước</small>
+                                                        <strong id="soNuoc"></strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="dichVuSection" class="col-12" style="display: none;">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-concierge-bell me-2"></i>Thông tin dịch vụ
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="MaDKDV" class="form-label">Mã đăng ký dịch vụ</label>
+                                            <select asp-for="MaDKDV" class="form-select" onchange="updateTongTien()">
+                                                <option value="">-- Chọn mã đăng ký dịch vụ --</option>
+                                                @foreach (var dkdv in ViewBag.DangKyDichVuList)
+                                                {
+                                                    <option value="@dkdv.MaDKDV"
+                                                            data-tendichvu="@dkdv.DichVu?.TenDichVu"
+                                                            data-soluong="@dkdv.SoLuong"
+                                                            data-tongtien="@dkdv.TongTien">
+                                                        @dkdv.MaDKDV - @dkdv.DichVu?.TenDichVu
+                                                    </option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="MaDKDV" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="dichVuInfo" class="mt-3" style="display: none;">
+                                            <div class="alert alert-info mb-0">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Dịch vụ</small>
+                                                        <strong id="tenDichVu"></strong>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <small class="text-muted d-block">Số lượng</small>
+                                                        <strong id="soLuong"></strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin thanh toán -->
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-money-bill me-2"></i>Thông tin thanh toán
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="TrangThai" class="form-label">Trạng thái thanh toán</label>
+                                            <select asp-for="TrangThai" class="form-select" required>
+                                                <option value="Chờ thanh toán">Chờ thanh toán</option>
+                                                <option value="Đã thanh toán">Đã thanh toán</option>
+                                            </select>
+                                            <span asp-validation-for="TrangThai" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="TongTien" class="form-label">Tổng tiền</label>
+                                            <div class="input-group">
+                                                <input asp-for="TongTien" class="form-control" readonly />
+                                                <span class="input-group-text">VNĐ</span>
+                                            </div>
+                                            <span asp-validation-for="TongTien" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Lưu hóa đơn
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function updateFields() {
+            const loaiChiPhi = document.getElementById('LoaiChiPhi').value;
+            const dienNuocSection = document.getElementById('dienNuocSection');
+            const dichVuSection = document.getElementById('dichVuSection');
+            const dienNuocInfo = document.getElementById('dienNuocInfo');
+            const dichVuInfo = document.getElementById('dichVuInfo');
+
+            // Reset fields
+            document.getElementById('MaDN').value = '';
+            document.getElementById('MaDKDV').value = '';
+            document.getElementById('TongTien').value = '';
+            dienNuocInfo.style.display = 'none';
+            dichVuInfo.style.display = 'none';
+
+            // Show/hide sections
+            if (loaiChiPhi === 'HoaDonDienNuoc') {
+                dienNuocSection.style.display = 'block';
+                dichVuSection.style.display = 'none';
+            } else if (loaiChiPhi === 'HoaDonDichVu') {
+                dienNuocSection.style.display = 'none';
+                dichVuSection.style.display = 'block';
+            }
+        }
+
+        function updateNhanVienInfo() {
+            const maNV = document.getElementById('MaNV').value;
+            const nhanVienInfo = document.getElementById('nhanVienInfo');
+            const nhanVienTen = document.getElementById('nhanVienTen');
+            const nhanVienSDT = document.getElementById('nhanVienSDT');
+
+            if (maNV) {
+                const selectedOption = document.getElementById('MaNV').options[document.getElementById('MaNV').selectedIndex];
+                nhanVienTen.textContent = selectedOption.text;
+                nhanVienSDT.textContent = selectedOption.getAttribute('data-sdt');
+                nhanVienInfo.style.display = 'block';
+            } else {
+                nhanVienInfo.style.display = 'none';
+            }
+        }
+
+        function updateSinhVienInfo() {
+            const maSV = document.getElementById('MaSV').value;
+            const sinhVienInfo = document.getElementById('sinhVienInfo');
+            const sinhVienTen = document.getElementById('sinhVienTen');
+            const sinhVienLop = document.getElementById('sinhVienLop');
+
+            if (maSV) {
+                const selectedOption = document.getElementById('MaSV').options[document.getElementById('MaSV').selectedIndex];
+                sinhVienTen.textContent = selectedOption.text;
+                sinhVienLop.textContent = selectedOption.getAttribute('data-lop');
+                sinhVienInfo.style.display = 'block';
+            } else {
+                sinhVienInfo.style.display = 'none';
+            }
+        }
+
+        function updateTongTien() {
+            const loaiChiPhi = document.getElementById('LoaiChiPhi').value;
+            const dienNuocInfo = document.getElementById('dienNuocInfo');
+            const dichVuInfo = document.getElementById('dichVuInfo');
+            const tongTienInput = document.getElementById('TongTien');
+
+            if (loaiChiPhi === 'HoaDonDienNuoc') {
+                const maDN = document.getElementById('MaDN').value;
+                if (maDN) {
+                    const selectedOption = document.getElementById('MaDN').options[document.getElementById('MaDN').selectedIndex];
+                    const tongTien = selectedOption.getAttribute('data-tongtien');
+                    tongTienInput.value = tongTien;
+                    
+                    // Update info display
+                    const soDien = selectedOption.getAttribute('data-sodien');
+                    const soNuoc = selectedOption.getAttribute('data-sonuoc');
+                    document.getElementById('soDien').textContent = soDien + ' kWh';
+                    document.getElementById('soNuoc').textContent = soNuoc + ' m³';
+                    dienNuocInfo.style.display = 'block';
+                } else {
+                    tongTienInput.value = '0';
+                    dienNuocInfo.style.display = 'none';
+                }
+            } else if (loaiChiPhi === 'HoaDonDichVu') {
+                const maDKDV = document.getElementById('MaDKDV').value;
+                if (maDKDV) {
+                    const selectedOption = document.getElementById('MaDKDV').options[document.getElementById('MaDKDV').selectedIndex];
+                    const tongTien = selectedOption.getAttribute('data-tongtien');
+                    tongTienInput.value = tongTien;
+                    
+                    // Update info display
+                    const tenDichVu = selectedOption.getAttribute('data-tendichvu');
+                    const soLuong = selectedOption.getAttribute('data-soluong');
+                    document.getElementById('tenDichVu').textContent = tenDichVu;
+                    document.getElementById('soLuong').textContent = soLuong;
+                    dichVuInfo.style.display = 'block';
+                } else {
+                    tongTienInput.value = '0';
+                    dichVuInfo.style.display = 'none';
+                }
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateFields();
+            updateNhanVienInfo();
+            updateSinhVienInfo();
+            updateTongTien();
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .form-label {
+            font-weight: 500;
+        }
+        .card-title {
+            font-weight: 600;
+        }
+        .form-control:disabled,
+        .form-select:disabled {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+        .input-group-text {
+            background-color: #e9ecef;
+            font-weight: 500;
+        }
+    </style>
+}

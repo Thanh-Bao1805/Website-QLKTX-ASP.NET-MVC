@@ -1,0 +1,336 @@
+@model DoAnCoSo.Models.HoaDon
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+}
+
+<div class="container-fluid px-4 py-4">
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["Info"] != null)
+    {
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            @TempData["Info"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 text-primary">
+                <i class="fas fa-file-invoice me-2"></i>Đơn hàng #@Model.MaHoaDon
+            </h5>
+            <div>
+                <a asp-action="ExportPdf" asp-controller="HoaDon" asp-route-id="@Model.MaHoaDon" class="btn btn-info btn-sm me-2">
+                    <i class="fas fa-file-pdf me-2"></i>Xuất PDF
+                </a>
+                <a asp-action="Index" asp-controller="HoaDon" class="btn btn-outline-secondary btn-sm">
+                    <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách hóa đơn
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model.TrangThai == "Đã thanh toán")
+            {
+                <div class="text-center mb-4">
+                    <h4 class="text-success mb-3"><i class="fas fa-check-circle me-2"></i>Thanh Toán Thành Công!</h4>
+                    <p class="lead mb-2">Cảm ơn bạn đã thanh toán hóa đơn.</p>
+                    <p class="fs-5 mb-4">Hóa đơn của bạn với mã <span class="text-primary fw-bold">#@Model.MaHoaDon</span> đã được thanh toán thành công!</p>
+                    <div class="alert alert-info d-inline-flex align-items-center py-2 px-3" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span>Hệ thống sẽ cập nhật trạng thái hóa đơn trong vòng 2-5 phút.</span>
+                    </div>
+                    <p class="mt-4 mb-3">Bạn có thể xem lại chi tiết hóa đơn hoặc quay lại trang danh sách hóa đơn.</p>
+                    <div class="d-grid gap-2 col-md-8 mx-auto">
+                        <a asp-action="OrderDetail" asp-controller="Payment" asp-route-id="@Model.MaHoaDon" class="btn btn-primary btn-lg">
+                            <i class="fas fa-file-invoice me-2"></i>Xem chi tiết hóa đơn
+                        </a>
+                        <a asp-action="ExportPdf" asp-controller="HoaDon" asp-route-id="@Model.MaHoaDon" class="btn btn-info btn-lg">
+                            <i class="fas fa-print me-2"></i>In hóa đơn
+                        </a>
+                        <a asp-action="Index" asp-controller="HoaDon" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách hóa đơn
+                        </a>
+                    </div>
+                </div>
+                <hr class="my-4" />
+            }
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h6 class="text-primary mb-3">Thông tin hóa đơn</h6>
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5">Mã hóa đơn:</dt>
+                        <dd class="col-sm-7 fw-bold">@Model.MaHoaDon</dd>
+
+                        <dt class="col-sm-5">Người lập:</dt>
+                        <dd class="col-sm-7">@ViewBag.TenKhachHang (@ViewBag.SoDienThoai)</dd>
+
+                        <dt class="col-sm-5">Ngày lập:</dt>
+                        <dd class="col-sm-7">@Model.NgayLap.ToString("HH:mm dd/MM/yyyy")</dd>
+
+                        <dt class="col-sm-5">Tổng tiền:</dt>
+                        <dd class="col-sm-7 text-danger fw-bold">@Model.TongTien.ToString("N0") VND</dd>
+
+                        <dt class="col-sm-5">Trạng thái:</dt>
+                        <dd class="col-sm-7">
+                            @if (Model.TrangThai == "Đã thanh toán")
+                            {
+                                <span class="badge bg-success">@Model.TrangThai</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">@Model.TrangThai</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            @if (Model.TrangThai != "Đã thanh toán")
+            {
+                <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+                    <i class="fas fa-info-circle me-3 fs-4"></i>
+                    <div>
+                        Giao dịch đang chờ xác nhận. Vui lòng chuyển khoản và xác nhận thanh toán để hoàn tất đơn hàng.
+                    </div>
+                </div>
+
+                <h5 class="text-primary mb-3">THÔNG TIN CHUYỂN KHOẢN</h5>
+                <p class="text-muted small">Vui lòng chuyển khoản đúng số tiền và nội dung để hệ thống tự động xác nhận.</p>
+
+                <div class="card bg-light mb-4 p-3 border-primary">
+                    <div class="card-body p-0">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/TPBank_logo.svg/1200px-TPBank_logo.svg.png" alt="TPBank Logo" class="bank-logo me-3" />
+                            <div>
+                                <h6 class="mb-0">MBBank - Ngân hàng Quân Đội</h6>
+                                <small class="text-muted">NGUYEN THANH BAO</small>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-primary text-white"><i class="fas fa-credit-card me-2"></i>Số tài khoản</span>
+                                    <input type="text" id="bankAccountNumber" class="form-control form-control-sm font-monospace fw-bold" value="0339723306" readonly />
+                                    <button class="btn btn-outline-primary btn-sm" type="button" onclick="copyToClipboard('bankAccountNumber')">Sao chép</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-primary text-white"><i class="fas fa-money-bill-wave me-2"></i>Số tiền</span>
+                                    <input type="text" id="transferAmount" class="form-control form-control-sm font-monospace fw-bold text-danger" value="@Model.TongTien.ToString("N0") VND" readonly />
+                                    <button class="btn btn-outline-primary btn-sm" type="button" onclick="copyToClipboard('transferAmount')">Sao chép</button>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-primary text-white"><i class="fas fa-comment-dollar me-2"></i>Nội dung</span>
+                                    <input type="text" id="transferContent" class="form-control form-control-sm font-monospace fw-bold" value="CHAO MOI NGUOI" readonly />
+                                    <button class="btn btn-outline-primary btn-sm" type="button" onclick="copyToClipboard('transferContent')">Sao chép</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4 align-items-center">
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-0">
+                            *Lưu ý: Vui lòng chuyển đúng số tiền và nội dung để hệ thống tự động xác nhận giao dịch.
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=example_qr_data" alt="QR Code" class="img-fluid qr-code" />
+                        <p class="text-muted small mt-2 mb-0">
+                            Hỗ trợ quét mã QR từ các ứng dụng Ngân Hàng, Momo, ZaloPay, ViettelMoney, VNPay,...
+                        </p>
+                    </div>
+                </div>
+
+                <form asp-action="PayConfirmed" asp-controller="Payment" method="post" class="mb-4">
+                    <input type="hidden" name="id" value="@Model.MaHoaDon" />
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="confirmPayment" required>
+                        <label class="form-check-label text-muted" for="confirmPayment">
+                            Tôi đã kiểm tra kỹ thông tin và xác nhận đã chuyển khoản thành công.
+                        </label>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-money-check-alt me-2"></i>Xác nhận đã thanh toán</button>
+                    </div>
+                </form>
+            }
+
+            <hr class="my-4" />
+
+            <p class="small text-muted">
+                <strong>Lưu ý quan trọng:</strong><br />
+                + Chúng tôi không chịu trách nhiệm với những đơn hàng chuyển không đủ tiền hoặc chuyển sai thông tin.<br />
+                + Vui lòng đảm bảo bạn chuyển khoản đúng số tài khoản và nội dung chuyển khoản được cung cấp.<br />
+                + Sau khi ngân hàng xác nhận giao dịch, hệ thống sẽ tự động cập nhật trạng thái hóa đơn trong vòng 2-5 phút.<br />
+                + Nếu gặp bất kỳ sự cố nào hoặc cần hỗ trợ, vui lòng liên hệ hotline: <span class="fw-bold text-primary">0339723306</span>.
+            </p>
+
+            @if (ViewBag.DebugInfo != null)
+            {
+                <div class="alert alert-info small mb-3">
+                    <strong>Debug:</strong> @ViewBag.DebugInfo
+                </div>
+            }
+            <h5 class="text-primary mt-4 mb-3">Chi tiết đơn hàng</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Mô tả</th>
+                            <th class="text-end">Số lượng</th>
+                            <th class="text-end">Đơn giá</th>
+                            <th class="text-end">Giảm giá</th>
+                            <th class="text-end">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var hasChiTiet = Model.HoaDonChiTiets != null && Model.HoaDonChiTiets.Any();
+                            var loaiChiPhi = Model.LoaiChiPhi ?? "";
+                            var loaiChiPhiUpper = loaiChiPhi.ToUpper();
+                            var isDienNuoc = loaiChiPhiUpper.Contains("DIENNUOC") || loaiChiPhi == "HoaDonDienNuoc";
+                            var isDichVu = loaiChiPhiUpper.Contains("DICHVU") || loaiChiPhi == "HoaDonDichVu" || !string.IsNullOrEmpty(Model.MaDKDV);
+                        }
+                        @if (hasChiTiet && Model.HoaDonChiTiets != null)
+                        {
+                            var itemIndex = 1;
+                            foreach (var item in Model.HoaDonChiTiets)
+                            {
+                                <tr>
+                                    <td>@(itemIndex++)</td>
+                                    <td>@item.TenThe</td>
+                                    <td class="text-end">@item.SoLuong</td>
+                                    <td class="text-end">@item.DonGia.ToString("N0") VND</td>
+                                    <td class="text-end">@item.GiamGia.ToString("N0") VND</td>
+                                    <td class="text-end">@item.ThanhTien.ToString("N0") VND</td>
+                                </tr>
+                            }
+                        }
+                        else if (isDienNuoc && Model.DienNuoc != null)
+                        {
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <strong>Điện nước</strong><br />
+                                    <small class="text-muted">Phòng: @(Model.DienNuoc.Phong?.MaPhong ?? "N/A")</small>
+                                </td>
+                                <td class="text-end">
+                                    Điện: @Model.DienNuoc.SoDien kWh<br />
+                                    Nước: @Model.DienNuoc.SoNuoc m³
+                                </td>
+                                <td class="text-end">
+                                    Điện: @Model.DienNuoc.DonGiaDien.ToString("N0") VND/kWh<br />
+                                    Nước: @Model.DienNuoc.DonGiaNuoc.ToString("N0") VND/m³
+                                </td>
+                                <td class="text-end">0 VND</td>
+                                <td class="text-end fw-bold">@Model.DienNuoc.TongTien.ToString("N0") VND</td>
+                            </tr>
+                        }
+                        else if ((isDichVu || !string.IsNullOrEmpty(Model.MaDKDV)) && Model.DangKyDichVu != null)
+                        {
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <strong>@(Model.DangKyDichVu.DichVu?.TenDichVu ?? "Dịch vụ")</strong>
+                                    @if (!string.IsNullOrEmpty(Model.DangKyDichVu.DichVu?.MoTa))
+                                    {
+                                        <br /><small class="text-muted">@Model.DangKyDichVu.DichVu.MoTa</small>
+                                    }
+                                </td>
+                                <td class="text-end">@Model.DangKyDichVu.SoLuong</td>
+                                <td class="text-end">@(Model.DangKyDichVu.DichVu != null ? Model.DangKyDichVu.DichVu.DonGia.ToString("N0") : "0") VND</td>
+                                <td class="text-end">0 VND</td>
+                                <td class="text-end fw-bold">@Model.DangKyDichVu.TongTien.ToString("N0") VND</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">
+                                    Không có chi tiết đơn hàng nào.
+                                    @if (!string.IsNullOrEmpty(Model.LoaiChiPhi))
+                                    {
+                                        <br /><small>Loại chi phí: @Model.LoaiChiPhi</small>
+                                    }
+                                    @if (Model.DienNuoc == null && Model.DangKyDichVu == null)
+                                    {
+                                        <br /><small class="text-danger">DienNuoc: @(Model.DienNuoc == null ? "null" : "có dữ liệu"), DangKyDichVu: @(Model.DangKyDichVu == null ? "null" : "có dữ liệu")</small>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        <tr class="table-primary fw-bold">
+                            <td colspan="3" class="text-end">TỔNG CỘNG</td>
+                            <td class="text-end"></td>
+                            <td class="text-end"></td>
+                            <td class="text-end">@Model.TongTien.ToString("N0") VND</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="text-end">PHÍ GIAO DỊCH</td>
+                            <td class="text-end">0 VND</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function copyToClipboard(elementId) {
+            var copyText = document.getElementById(elementId);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            alert("Đã sao chép: " + copyText.value);
+        }
+    </script>
+}
+
+@section Styles {
+    <style>
+        .card-header h5 {
+            font-weight: 600;
+        }
+        .bank-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        .input-group-text {
+            min-width: 120px;
+            justify-content: flex-start;
+        }
+        .qr-code {
+            border: 1px solid #dee2e6;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        .table th,
+        .table td {
+            white-space: nowrap;
+        }
+    </style>
+} 

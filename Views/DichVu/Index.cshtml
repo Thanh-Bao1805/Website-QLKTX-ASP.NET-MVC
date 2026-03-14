@@ -1,0 +1,174 @@
+﻿@model IEnumerable<DoAnCoSo.Models.DichVu>
+@using Microsoft.AspNetCore.Identity
+@using DoAnCoSo.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Danh sách dịch vụ";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-concierge-bell me-2"></i>@ViewData["Title"]
+                </h5>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Add" class="btn btn-light">
+                        <i class="fas fa-plus me-2"></i>Thêm dịch vụ mới
+                    </a>
+                }
+            </div>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+                <i class="fas fa-check-circle me-2"></i>@TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="card-body">
+            <div class="row g-4">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="service-card h-100">
+                            <div class="service-card-body">
+                                @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                {
+                                    <img src="@item.HinhAnh" alt="Hình ảnh dịch vụ" class="img-fluid rounded mb-2" style="max-height:120px;object-fit:cover;" />
+                                }
+                                else
+                                {
+                                    <div class="service-icon mb-3">
+                                        <i class="fas fa-cog fa-2x text-primary"></i>
+                                    </div>
+                                }
+                                <h5 class="service-title mb-2">@item.TenDichVu</h5>
+                                <div class="service-price mb-3">
+                                    <span class="price-tag">@item.DonGia.ToString("N0") VNĐ</span>
+                                </div>
+                                <p class="service-description mb-3">@item.MoTa</p>
+                                <div class="service-code mb-3">
+                                    <small class="text-muted">Mã dịch vụ: @item.MaDV</small>
+                                </div>
+                                <div class="service-actions">
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <a asp-controller="DangKyDichVu" asp-action="Add" asp-route-maDV="@item.MaDV"
+                                           class="btn btn-success btn-sm" data-bs-toggle="tooltip"
+                                           title="Đăng ký dịch vụ">
+                                            <i class="fas fa-plus"></i> Đăng ký
+                                        </a>
+                                        <a asp-action="Display" asp-route-id="@item.MaDV"
+                                           class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip"
+                                           title="Xem chi tiết">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a asp-action="Update" asp-route-id="@item.MaDV"
+                                               class="btn btn-outline-warning btn-sm" data-bs-toggle="tooltip"
+                                               title="Chỉnh sửa">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.MaDV"
+                                               class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip"
+                                               title="Xóa">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .service-card {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .service-card-body {
+        padding: 1.5rem;
+    }
+
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(var(--bs-primary-rgb), 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .service-title {
+        color: var(--bs-dark);
+        font-weight: 600;
+    }
+
+    .service-price {
+        color: var(--bs-primary);
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .service-description {
+        color: var(--bs-gray-600);
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .service-actions {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+        border-top: 1px solid var(--bs-gray-200);
+        padding-top: 1rem;
+        margin-top: 1rem;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+    }
+
+    .card-header {
+        border-bottom: none;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        });
+    </script>
+}

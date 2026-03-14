@@ -1,0 +1,70 @@
+﻿@model DoAnCoSo.Models.ViPham
+@{
+    ViewData["Title"] = "Chi tiết vi phạm";
+}
+
+<div class="container-fluid px-4">
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-info-circle me-1"></i>
+                    @ViewData["Title"]
+                </div>
+                <a asp-action="Index" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-1"></i>Quay lại
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <h5 class="text-muted mb-3">Thông tin vi phạm</h5>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="small text-muted">Mã vi phạm</label>
+                                    <div class="h5">@Model.MaViPham</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="small text-muted">Ngày vi phạm</label>
+                                    <div class="h5">@Model.NgayViPham.ToString("dd/MM/yyyy")</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <h5 class="text-muted mb-3">Thông tin liên quan</h5>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="small text-muted">Sinh viên</label>
+                                    <div class="h5">@Model.SinhVien?.HoTen</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="small text-muted">Nội quy vi phạm</label>
+                                    <div class="h5">@Model.NoiQuy?.NoiDung</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                       @if (User.IsInRole("Admin"))
+                    {
+                <a asp-action="Update" asp-route-id="@Model.MaViPham" class="btn btn-warning">
+                    <i class="fas fa-edit me-1"></i>Cập nhật
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.MaViPham" class="btn btn-danger ms-2">
+                    <i class="fas fa-trash me-1"></i>Xóa
+                </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

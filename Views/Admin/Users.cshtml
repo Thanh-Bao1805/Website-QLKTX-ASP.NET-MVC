@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DoAnCoSo.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Quản lý người dùng";
+}
+
+<h2>Danh sách người dùng</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>FullName</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+                <tr>
+                    <td>@user.FullName</td>
+                    <td>@user.Email</td>
+                    <td>@user.UserName</td>
+                    <td>
+                        <a asp-action="EditRole" asp-route-userId="@user.Id" class="btn btn-sm btn-primary">
+                            Chỉnh quyền
+                        </a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>

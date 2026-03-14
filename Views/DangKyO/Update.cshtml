@@ -1,0 +1,286 @@
+﻿@model DoAnCoSo.Models.DangKyO
+@{
+    ViewData["Title"] = "Cập nhật thông tin đăng ký ở";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-white">
+            <h2 class="mb-0">
+                <i class="fas fa-edit"></i> @ViewData["Title"]
+            </h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Update" method="post" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <input type="hidden" asp-for="MaDK" />
+
+                <!-- Thông tin cơ bản -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h4 class="text-warning mb-3">
+                            <i class="fas fa-info-circle"></i> Thông tin cơ bản
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="MaDK" class="form-control" readonly />
+                            <label asp-for="MaDK">Mã đăng ký</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="MSSV" class="form-control" placeholder="Nhập MSSV" required 
+                                   pattern="[0-9]+" title="MSSV chỉ được chứa số" />
+                            <label asp-for="MSSV">Mã số sinh viên</label>
+                            <span asp-validation-for="MSSV" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập MSSV hợp lệ (chỉ chứa số)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin cá nhân -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h4 class="text-warning mb-3">
+                            <i class="fas fa-user"></i> Thông tin cá nhân
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="HoTen" class="form-control" placeholder="Nhập họ tên" required 
+                                   pattern="^[\p{L} ]+$" title="Họ tên chỉ được chứa chữ cái và khoảng trắng" />
+                            <label asp-for="HoTen">Họ và tên</label>
+                            <span asp-validation-for="HoTen" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập họ tên hợp lệ
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="NgaySinh" class="form-control" type="date" required 
+                                   max="@DateTime.Now.AddYears(-16).ToString("yyyy-MM-dd")" />
+                            <label asp-for="NgaySinh">Ngày sinh</label>
+                            <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Sinh viên phải đủ 16 tuổi
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <select asp-for="GioiTinh" class="form-select" required>
+                                <option value="">-- Chọn giới tính --</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                            <label asp-for="GioiTinh">Giới tính</label>
+                            <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Vui lòng chọn giới tính
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <input asp-for="SDT" class="form-control" placeholder="Nhập số điện thoại" required 
+                                   pattern="^(0[0-9]{9})$" title="Số điện thoại phải bắt đầu bằng số 0 và có 10 chữ số" />
+                            <label asp-for="SDT">Số điện thoại</label>
+                            <span asp-validation-for="SDT" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập số điện thoại hợp lệ (10 số, bắt đầu bằng số 0)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <input asp-for="CCCD" class="form-control" placeholder="Nhập CCCD" required 
+                                   pattern="^[0-9]{12}$" title="CCCD phải có đúng 12 chữ số" />
+                            <label asp-for="CCCD">CCCD/CMND</label>
+                            <span asp-validation-for="CCCD" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập CCCD hợp lệ (12 số)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Email" class="form-control" type="email" placeholder="Nhập email" required 
+                                   pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$" />
+                            <label asp-for="Email">Email</label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập địa chỉ email hợp lệ
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin học tập -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h4 class="text-warning mb-3">
+                            <i class="fas fa-graduation-cap"></i> Thông tin học tập
+                        </h4>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Lop" class="form-control" placeholder="Nhập lớp" required />
+                            <label asp-for="Lop">Lớp</label>
+                            <span asp-validation-for="Lop" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập lớp
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Khoa" class="form-control" placeholder="Nhập khoa" required />
+                            <label asp-for="Khoa">Khoa</label>
+                            <span asp-validation-for="Khoa" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập khoa
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating mb-3">
+                            <input asp-for="DiaChiThuongTru" class="form-control" placeholder="Nhập địa chỉ" required />
+                            <label asp-for="DiaChiThuongTru">Địa chỉ thường trú</label>
+                            <span asp-validation-for="DiaChiThuongTru" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập địa chỉ thường trú
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin đăng ký phòng -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h4 class="text-warning mb-3">
+                            <i class="fas fa-home"></i> Thông tin đăng ký phòng
+                        </h4>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <input asp-for="NgayBatDauO" class="form-control" type="date" id="ngayBatDau" required 
+                                   min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            <label asp-for="NgayBatDauO">Ngày bắt đầu ở</label>
+                            <span asp-validation-for="NgayBatDauO" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Ngày bắt đầu phải từ ngày hiện tại trở đi
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <input asp-for="NgayKetThucO" class="form-control" type="date" id="ngayKetThuc" required readonly />
+                            <label asp-for="NgayKetThucO">Ngày kết thúc ở (12 tháng)</label>
+                            <span asp-validation-for="NgayKetThucO" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <select asp-for="MaPhong" class="form-select" asp-items="ViewBag.PhongList" required>
+                                <option value="">-- Chọn phòng --</option>
+                            </select>
+                            <label asp-for="MaPhong">Phòng</label>
+                            <span asp-validation-for="MaPhong" class="text-danger"></span>
+                            <div class="invalid-feedback">
+                                Vui lòng chọn phòng
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-warning btn-lg px-5">
+                        <i class="fas fa-save me-2"></i>Cập nhật
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary btn-lg px-5 ms-2">
+                        <i class="fas fa-arrow-left me-2"></i>Quay lại
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-floating > label {
+        font-weight: 500;
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: var(--bs-warning);
+        box-shadow: 0 0 0 0.25rem rgba(var(--bs-warning-rgb), 0.25);
+    }
+    .card-header h2 {
+        font-size: 1.75rem;
+    }
+    h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+    }
+    .card {
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+    .alert {
+        border-radius: 0.5rem;
+        border: none;
+    }
+    .invalid-feedback {
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+    .was-validated .form-control:invalid,
+    .was-validated .form-select:invalid {
+        border-color: var(--bs-danger);
+    }
+    .was-validated .form-control:valid,
+    .was-validated .form-select:valid {
+        border-color: var(--bs-success);
+    }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function updateNgayKetThuc() {
+            const ngayBatDau = new Date(document.getElementById('ngayBatDau').value);
+            if (!isNaN(ngayBatDau)) {
+                const ngayKetThuc = new Date(ngayBatDau);
+                ngayKetThuc.setFullYear(ngayKetThuc.getFullYear() + 1);
+                document.getElementById('ngayKetThuc').value = ngayKetThuc.toISOString().split('T')[0];
+            }
+        }
+
+        document.getElementById('ngayBatDau').addEventListener('change', updateNgayKetThuc);
+
+        // Set initial end date when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNgayKetThuc();
+
+            // Enable Bootstrap form validation
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,53 @@
+﻿@model DoAnCoSo.Models.ThongBao
+
+@{
+    ViewData["Title"] = "Chi Tiết Thông Báo";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Mã thông báo:</strong> @Model.MaTB
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Ngày gửi:</strong> @Model.NgayGui.ToString("dd/MM/yyyy HH:mm")
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Tiêu đề:</strong>
+                        <div class="p-2 bg-light rounded">@Model.TieuDe</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Nội dung:</strong>
+                        <div class="p-3 bg-light rounded" style="min-height: 100px;">
+                            @Html.Raw(Model.NoiDung.Replace("\n", "<br>"))
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Đối tượng:</strong> @Model.DoiTuong
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Quản trị viên:</strong> @(Model.QuanTriVien?.HoTen ?? "N/A")
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Quay Lại Danh Sách
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

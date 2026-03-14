@@ -1,0 +1,133 @@
+﻿@model DoAnCoSo.Models.DichVu
+
+@{
+    ViewData["Title"] = "Chi tiết dịch vụ";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-concierge-bell me-2"></i>@ViewData["Title"]
+                </h5>
+                <div>
+                    <a asp-action="Update" asp-route-id="@Model.MaDV" class="btn btn-warning">
+                        <i class="fas fa-edit me-2"></i>Cập nhật
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">
+                        <i class="fas fa-arrow-left me-2"></i>Quay lại
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="service-details">
+                        @if (!string.IsNullOrEmpty(Model.HinhAnh))
+                        {
+                            <div class="mb-3">
+                                <img src="@Model.HinhAnh" alt="Hình ảnh dịch vụ" class="img-fluid rounded" style="max-height:200px;object-fit:cover;" />
+                            </div>
+                        }
+                        <div class="service-icon mb-4">
+                            <i class="fas fa-cog fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="service-title mb-3">@Model.TenDichVu</h4>
+                        <div class="service-price mb-4">
+                            <span class="price-label">Đơn giá:</span>
+                            <span class="price-value">@Model.DonGia.ToString("N0") VNĐ</span>
+                        </div>
+                        <div class="service-code mb-3">
+                            <span class="code-label">Mã dịch vụ:</span>
+                            <span class="code-value">@Model.MaDV</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="service-description">
+                        <h5 class="description-title mb-3">Mô tả dịch vụ</h5>
+                        <div class="description-content p-3 bg-light rounded">
+                            @if (string.IsNullOrEmpty(Model.MoTa))
+                            {
+                                <p class="text-muted fst-italic">Chưa có mô tả cho dịch vụ này</p>
+                            }
+                            else
+                            {
+                                <p>@Model.MoTa</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .service-details {
+        text-align: center;
+        padding: 2rem;
+        background-color: #f8f9fa;
+        border-radius: 1rem;
+    }
+
+    .service-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        background: rgba(var(--bs-primary-rgb), 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .service-title {
+        color: var(--bs-dark);
+        font-weight: 600;
+    }
+
+    .service-price {
+        background-color: var(--bs-white);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    .price-label {
+        display: block;
+        color: var(--bs-gray-600);
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .price-value {
+        color: var(--bs-primary);
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .service-code {
+        font-size: 0.875rem;
+    }
+
+    .code-label {
+        color: var(--bs-gray-600);
+        margin-right: 0.5rem;
+    }
+
+    .code-value {
+        font-weight: 500;
+    }
+
+    .description-title {
+        color: var(--bs-gray-700);
+        font-weight: 600;
+    }
+
+    .description-content {
+        min-height: 150px;
+    }
+</style>

@@ -1,0 +1,71 @@
+﻿@model DoAnCoSo.Models.ThietBi
+
+@{
+    ViewData["Title"] = "Chi tiết thiết bị";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+            <h5 class="mb-0">@ViewData["Title"]</h5>
+            <div>
+                <a asp-action="Update" asp-route-id="@Model.MaThietBi" class="btn btn-warning btn-sm">
+                    <i class="fas fa-edit me-2"></i>Sửa
+                </a>
+                <a asp-action="Index" class="btn btn-secondary btn-sm ms-2">
+                    <i class="fas fa-arrow-left me-2"></i>Quay lại
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="border rounded p-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
+                                <i class="fas fa-barcode text-primary"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Mã thiết bị</div>
+                                <div class="fw-medium">@Model.MaThietBi</div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3">
+                                <i class="fas fa-tools text-success"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Tên thiết bị</div>
+                                <div class="fw-medium">@Model.TenThietBi</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="border rounded p-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3">
+                                <i class="fas fa-tag text-info"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Loại thiết bị</div>
+                                <div>
+                                    <span class="badge bg-info">@Model.Loai</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-secondary bg-opacity-10 p-3 me-3">
+                                <i class="fas fa-align-left text-secondary"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Mô tả</div>
+                                <div class="text-wrap">@(string.IsNullOrEmpty(Model.MoTa) ? "Không có mô tả" : Model.MoTa)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

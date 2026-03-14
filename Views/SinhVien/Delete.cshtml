@@ -1,0 +1,202 @@
+﻿@model DoAnCoSo.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Xác nhận xóa sinh viên";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm border-danger">
+        <div class="card-header bg-danger text-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>@ViewData["Title"]
+                </h5>
+                <a asp-action="Index" class="btn btn-light">
+                    <i class="fas fa-arrow-left me-2"></i>Quay lại
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-danger mb-4">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-exclamation-circle fa-2x me-3"></i>
+                    <div>
+                        <h5 class="alert-heading mb-1">Cảnh báo xóa sinh viên!</h5>
+                        <p class="mb-0">
+                            Bạn đang thực hiện xóa thông tin sinh viên. Hành động này không thể hoàn tác.
+                            Vui lòng kiểm tra kỹ thông tin trước khi xác nhận.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Thông tin cơ bản -->
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="avatar-circle-large bg-danger text-white mx-auto mb-3">
+                                @Model.HoTen.First().ToString().ToUpper()
+                            </div>
+                            <h4 class="mb-1">@Model.HoTen</h4>
+                            <p class="text-muted mb-3">
+                                <i class="fas fa-id-card me-2"></i>@Model.MaSV
+                            </p>
+                            <hr />
+                            <div class="text-start">
+                                <p class="mb-2">
+                                    <i class="fas fa-birthday-cake text-danger me-2"></i>
+                                    <strong>Ngày sinh:</strong>
+                                </p>
+                                @if (Model.NgaySinh != default(DateTime))
+                                {
+                                    <p class="ms-4">@Model.NgaySinh.ToString("dd/MM/yyyy")</p>
+                                }
+                                else
+                                {
+                                    <p class="ms-4">Chưa cập nhật</p>
+                                }
+                                <p class="mb-2">
+                                    <i class="fas fa-venus-mars text-danger me-2"></i>
+                                    <strong>Giới tính:</strong> @Model.GioiTinh
+                                </p>
+                                <p class="mb-2">
+                                    <i class="fas fa-id-badge text-danger me-2"></i>
+                                    <strong>CCCD:</strong> @Model.CCCD
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin liên hệ -->
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light border-0">
+                            <h6 class="mb-0">
+                                <i class="fas fa-address-card me-2"></i>Thông tin liên hệ
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <p class="mb-2">
+                                    <i class="fas fa-phone text-danger me-2"></i>
+                                    <strong>Số điện thoại:</strong>
+                                </p>
+                                <p class="ms-4">@Model.SDT</p>
+                            </div>
+                            <div class="mb-4">
+                                <p class="mb-2">
+                                    <i class="fas fa-envelope text-danger me-2"></i>
+                                    <strong>Email:</strong>
+                                </p>
+                                <p class="ms-4">@Model.Email</p>
+                            </div>
+                            <div>
+                                <p class="mb-2">
+                                    <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                    <strong>Địa chỉ thường trú:</strong>
+                                </p>
+                                <p class="ms-4">@Model.DiaChiThuongTru</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin học tập và KTX -->
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-light border-0">
+                            <h6 class="mb-0">
+                                <i class="fas fa-graduation-cap me-2"></i>Thông tin học tập & KTX
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <p class="mb-2">
+                                    <i class="fas fa-university text-danger me-2"></i>
+                                    <strong>Khoa:</strong>
+                                </p>
+                                <p class="ms-4">@Model.Khoa</p>
+                            </div>
+                            <div class="mb-4">
+                                <p class="mb-2">
+                                    <i class="fas fa-users text-danger me-2"></i>
+                                    <strong>Lớp:</strong>
+                                </p>
+                                <p class="ms-4">@Model.Lop</p>
+                            </div>
+                            <div>
+                                <p class="mb-2">
+                                    <i class="fas fa-home text-danger me-2"></i>
+                                    <strong>Trạng thái KTX:</strong>
+                                </p>
+                                <div class="ms-4">
+                                    @if (Model.NgayNhapKTX != default(DateTime))
+                                    {
+                                        <div class="badge bg-danger p-2">
+                                            <i class="fas fa-check-circle me-1"></i>
+                                            Đang ở KTX (từ @Model.NgayNhapKTX.ToString("dd/MM/yyyy"))
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge bg-secondary p-2">
+                                            <i class="fas fa-times-circle me-1"></i>
+                                            Chưa ở KTX
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end mt-4">
+                <form asp-action="Delete" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="MaSV" />
+                    <button type="submit" class="btn btn-danger delete-btn">
+                        <i class="fas fa-trash me-2"></i>Xác nhận xóa
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">
+                        <i class="fas fa-times me-2"></i>Hủy
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .avatar-circle-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 2.5rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('.delete-btn').on('click', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+                
+                if (confirm('Bạn có chắc chắn muốn xóa sinh viên này không?')) {
+                    $(this).prop('disabled', true)
+                        .html('<i class="fas fa-spinner fa-spin me-2"></i>Đang xóa...');
+                    form.submit();
+                }
+            });
+        });
+    </script>
+}

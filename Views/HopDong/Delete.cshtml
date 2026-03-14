@@ -1,0 +1,145 @@
+﻿@model DoAnCoSo.Models.HopDong
+@{
+    ViewData["Title"] = "Xóa Hợp Đồng";
+}
+
+<div class="container-fluid px-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-danger text-white py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-exclamation-triangle me-2"></i>@ViewData["Title"]
+                        </h5>
+                        <a asp-action="Index" class="btn btn-light btn-sm">
+                            <i class="fas fa-arrow-left me-2"></i>Quay lại
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-body text-center py-4">
+                    <div class="mb-4">
+                        <i class="fas fa-trash-alt fa-4x text-danger mb-3"></i>
+                        <h4 class="text-danger">Bạn có chắc chắn muốn xóa?</h4>
+                        <p class="text-muted">Thao tác này không thể hoàn tác. Hợp đồng sẽ bị xóa vĩnh viễn khỏi hệ thống.</p>
+                    </div>
+
+                    <!-- Thông tin hợp đồng -->
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <div class="row text-start">
+                                <div class="col-md-6 mb-3">
+                                    <strong>Mã hợp đồng:</strong>
+                                    <br>
+                                    <span class="badge bg-secondary fs-6">@Model.MaHopDong</span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <strong>Trạng thái:</strong>
+                                    <br>
+                                    @{
+                                        var badgeClass = Model.TrangThai switch
+                                        {
+                                            "Đang hoạt động" => "bg-success",
+                                            "Đã kết thúc" => "bg-secondary",
+                                            "Tạm ngưng" => "bg-warning",
+                                            "Hủy bỏ" => "bg-danger",
+                                            _ => "bg-info"
+                                        };
+                                    }
+                                    <span class="badge @badgeClass">@Model.TrangThai</span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <strong>Ngày bắt đầu:</strong>
+                                    <br>
+                                    @Model.NgayBatDau.ToString("dd/MM/yyyy")
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <strong>Ngày kết thúc:</strong>
+                                    <br>
+                                    @Model.NgayKetThuc.ToString("dd/MM/yyyy")
+                                </div>
+                                <div class="col-12">
+                                    <hr>
+                                    <strong>Thông tin các bên:</strong>
+                                    <div class="row mt-2">
+                                        <div class="col-md-4">
+                                            <small class="text-muted">Sinh viên:</small>
+                                            <br>
+                                            <span class="fw-bold">@Model.SinhVien?.HoTen</span>
+                                            <br>
+                                            <small class="text-muted">@Model.MaSV</small>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <small class="text-muted">Phòng:</small>
+                                            <br>
+                                            <span class="fw-bold">@Model.Phong?.MaPhong</span>
+                                            <br>
+                                            <small class="text-muted">@Model.Phong?.LoaiPhong</small>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <small class="text-muted">Nhân viên:</small>
+                                            <br>
+                                            <span class="fw-bold">@Model.NhanVien?.HoTen</span>
+                                            <br>
+                                            <small class="text-muted">@Model.MaNV</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cảnh báo quan trọng -->
+                    <div class="alert alert-warning mb-4">
+                        <h6 class="alert-heading">
+                            <i class="fas fa-exclamation-circle me-2"></i>Cảnh báo quan trọng
+                        </h6>
+                        <ul class="mb-0 ps-3">
+                            <li>Hợp đồng này sẽ bị xóa vĩnh viễn</li>
+                            <li>Không thể khôi phục sau khi xóa</li>
+                            <li>Ảnh hưởng đến lịch sử quản lý</li>
+                        </ul>
+                    </div>
+
+                    <!-- Form xóa -->
+                    <form asp-action="DeleteConfirmed" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.MaHopDong" />
+
+                        <div class="d-flex justify-content-center gap-3">
+                            <a asp-action="Index" class="btn btn-secondary px-4">
+                                <i class="fas fa-times me-2"></i>Hủy bỏ
+                            </a>
+                            <button type="submit" class="btn btn-danger px-4">
+                                <i class="fas fa-trash me-2"></i>Xác nhận xóa
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .badge {
+            font-size: 0.8em;
+            padding: 0.5em 0.75em;
+        }
+
+        .fs-6 {
+            font-size: 1.1rem !important;
+        }
+
+        .alert ul {
+            margin-bottom: 0;
+        }
+    </style>
+}

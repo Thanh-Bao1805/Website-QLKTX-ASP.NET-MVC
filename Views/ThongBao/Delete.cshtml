@@ -1,0 +1,55 @@
+﻿@model DoAnCoSo.Models.ThongBao
+
+@{
+    ViewData["Title"] = "Xóa Thông Báo";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="text-danger mb-4">Bạn có chắc chắn muốn xóa thông báo này?</h5>
+
+                    <div class="alert alert-warning">
+                        <strong>Lưu ý:</strong> Thao tác này không thể hoàn tác!
+                    </div>
+
+                    <dl class="row">
+                        <dt class="col-sm-4">Mã TB:</dt>
+                        <dd class="col-sm-8">@Model.MaTB</dd>
+
+                        <dt class="col-sm-4">Tiêu đề:</dt>
+                        <dd class="col-sm-8">@Model.TieuDe</dd>
+
+                        <dt class="col-sm-4">Ngày gửi:</dt>
+                        <dd class="col-sm-8">@Model.NgayGui.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                        <dt class="col-sm-4">Đối tượng:</dt>
+                        <dd class="col-sm-8">@Model.DoiTuong</dd>
+
+                        <dt class="col-sm-4">Quản trị viên:</dt>
+                        <dd class="col-sm-8">@(Model.QuanTriVien?.HoTen ?? "N/A")</dd>
+                    </dl>
+
+                    <form asp-action="Delete" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="MaTB" />
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Xác Nhận Xóa
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Hủy Bỏ
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

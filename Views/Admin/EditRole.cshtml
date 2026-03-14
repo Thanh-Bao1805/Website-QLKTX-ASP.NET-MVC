@@ -1,0 +1,27 @@
+﻿@model DoAnCoSo.Models.ApplicationUser
+@{
+    ViewData["Title"] = "Chỉnh sửa quyền";
+    var roles = ViewBag.Roles as List<string>;
+    var userRoles = ViewBag.UserRoles as IList<string>;
+}
+
+<h2>Chỉnh quyền cho: @Model.FullName</h2>
+
+<form asp-action="EditRole" method="post">
+    <input type="hidden" name="userId" value="@Model.Id" />
+
+    <div class="form-group">
+        <label>Chọn Role</label>
+        <select name="role" class="form-control">
+            @foreach (var role in roles)
+            {
+                <option value="@role" selected="@(userRoles != null && userRoles.Contains(role) ? "selected" : null)">
+                    @role
+                </option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Cập nhật</button>
+    <a asp-action="Users" class="btn btn-secondary mt-2">Hủy</a>
+</form>

@@ -1,0 +1,82 @@
+@model IEnumerable<DoAnCoSo.Models.Phong>
+
+<div class="row g-4" id="roomList">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-sm room-card">
+                <div class="position-relative">
+                    <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "/images/default-room.jpg" : item.ImageUrl)"
+                         class="card-img-top"
+                         style="height: 250px; object-fit: cover;"
+                         alt="Phòng @item.MaPhong" />
+                    <div class="position-absolute top-0 start-0 m-3">
+                        <span class="badge @(item.TrangThai == "Trống" ? "bg-success" : "bg-warning") px-3 py-2 rounded-pill">
+                            <i class="@(item.TrangThai == "Trống" ? "fas fa-check-circle" : "fas fa-user-friends") me-1"></i>
+                            @item.TrangThai
+                        </span>
+                    </div>
+                    <div class="position-absolute bottom-0 start-0 w-100 p-3 room-info">
+                        <h5 class="text-white mb-0">Phòng @item.MaPhong</h5>
+                        <p class="text-white-50 mb-0">@item.Toa?.TenToa</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="room-features mb-3">
+                        <span class="badge bg-light text-dark me-2">
+                            <i class="fas fa-bed me-1"></i>@item.SoGiuong giường
+                        </span>
+                        <span class="badge bg-light text-dark me-2">
+                            <i class="fas fa-venus-mars me-1"></i>@item.LoaiPhong
+                        </span>
+                        <span class="badge bg-light text-dark me-2">
+                            <i class="fas fa-restroom me-1"></i>@item.GioiTinhPhong
+                        </span>
+                        <span class="badge bg-light text-dark">
+                            <i class="fas fa-money-bill me-1"></i>@item.GiaPhong.ToString("N0")đ
+                        </span>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a asp-controller="DangKyO" asp-action="AddWithRoom" 
+                           asp-route-maPhong="@item.MaPhong" 
+                           class="btn btn-primary">
+                            <i class="fas fa-check-circle me-2"></i>Đăng ký ngay
+                        </a>
+                        <a asp-controller="Phong" asp-action="Display" 
+                           asp-route-id="@item.MaPhong" 
+                           class="btn btn-outline-primary">
+                            <i class="fas fa-info-circle me-2"></i>Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="text-center mt-4">
+    <div class="d-flex justify-content-center align-items-center gap-3">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <button type="button" class="btn btn-outline-primary btn-lg load-more" data-page="@(ViewBag.CurrentPage - 1)">
+                <i class="fas fa-chevron-left me-2"></i>Trang trước
+            </button>
+        }
+        
+        <div class="text-muted">
+            <small>Trang @ViewBag.CurrentPage / @ViewBag.TotalPages</small>
+        </div>
+
+        @if (ViewBag.HasNextPage)
+        {
+            <button type="button" class="btn btn-outline-primary btn-lg load-more" data-page="@(ViewBag.CurrentPage + 1)">
+                <i class="fas fa-chevron-right me-2"></i>Trang sau
+            </button>
+        }
+    </div>
+    
+    <div class="text-muted mt-2">
+        <small>Hiển thị @(((ViewBag.CurrentPage - 1) * 12) + 1) - @(((ViewBag.CurrentPage - 1) * 12) + Model.Count()) 
+               trong tổng số @ViewBag.TotalItems phòng</small>
+    </div>
+</div> 

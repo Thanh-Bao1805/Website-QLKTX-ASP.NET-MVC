@@ -1,0 +1,205 @@
+﻿@model DoAnCoSo.Models.LichTrucNhanVien
+@{
+    ViewData["Title"] = "Chi tiết Lịch Trực";
+}
+
+<div class="container-fluid px-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-calendar-check me-2"></i>@ViewData["Title"]
+                        </h5>
+                        <div>
+                            <a asp-action="Index" class="btn btn-light btn-sm me-2">
+                                <i class="fas fa-arrow-left me-2"></i>Quay lại
+                            </a>
+                            <a asp-action="Update" asp-route-id="@Model.MaLT" class="btn btn-warning btn-sm me-2">
+                                <i class="fas fa-edit me-2"></i>Sửa
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@Model.MaLT" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash me-2"></i>Xóa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Thông tin lịch trực -->
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0">
+                                        <i class="fas fa-info-circle me-2 text-primary"></i>Thông tin lịch trực
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4 fw-bold">Mã lịch trực:</div>
+                                        <div class="col-sm-8">
+                                            <span class="badge bg-secondary fs-6">@Model.MaLT</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4 fw-bold">Ngày trực:</div>
+                                        <div class="col-sm-8">
+                                            <span class="fw-bold">@Model.NgayTruc.ToString("dd/MM/yyyy")</span>
+                                            <br>
+                                            <small class="text-muted">@Model.NgayTruc.DayOfWeek</small>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4 fw-bold">Ca trực:</div>
+                                        <div class="col-sm-8">
+                                            @{
+                                                var badgeClass = Model.CaTruc switch
+                                                {
+                                                    "Sáng" => "bg-info",
+                                                    "Chiều" => "bg-warning",
+                                                    "Tối" => "bg-dark",
+                                                    _ => "bg-secondary"
+                                                };
+                                                var timeRange = Model.CaTruc switch
+                                                {
+                                                    "Sáng" => "07:00 - 12:00",
+                                                    "Chiều" => "13:00 - 18:00",
+                                                    "Tối" => "19:00 - 22:00",
+                                                    _ => ""
+                                                };
+                                            }
+                                            <span class="badge @badgeClass fs-6">@Model.CaTruc</span>
+                                            <br>
+                                            <small class="text-muted">@timeRange</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thông tin nhân viên -->
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0">
+                                        <i class="fas fa-user-tie me-2 text-success"></i>Thông tin nhân viên
+                                    </h6>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="mb-3">
+                                        <i class="fas fa-user-shield fa-3x text-success mb-2"></i>
+                                        <h5 class="fw-bold">@Model.NhanVien?.HoTen</h5>
+                                        <span class="badge bg-secondary">@Model.MaNV</span>
+                                    </div>
+                                    <div class="text-start small">
+                                        <div class="mb-1">
+                                            <i class="fas fa-id-badge me-2 text-muted"></i>
+                                            <strong>Mã NV:</strong> @Model.MaNV
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin chi tiết ca trực -->
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0">
+                                <i class="fas fa-clock me-2"></i>Chi tiết ca trực
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            @{
+                                var caTrucInfo = Model.CaTruc switch
+                                {
+                                    "Sáng" => new
+                                    {
+                                        Start = "07:00",
+                                        End = "12:00",
+                                        Duration = "5 tiếng",
+                                        Color = "info",
+                                        Icon = "fa-sun"
+                                    },
+                                    "Chiều" => new
+                                    {
+                                        Start = "13:00",
+                                        End = "18:00",
+                                        Duration = "5 tiếng",
+                                        Color = "warning",
+                                        Icon = "fa-cloud-sun"
+                                    },
+                                    "Tối" => new
+                                    {
+                                        Start = "19:00",
+                                        End = "22:00",
+                                        Duration = "3 tiếng",
+                                        Color = "dark",
+                                        Icon = "fa-moon"
+                                    },
+                                    _ => new
+                                    {
+                                        Start = "",
+                                        End = "",
+                                        Duration = "",
+                                        Color = "secondary",
+                                        Icon = "fa-clock"
+                                    }
+                                };
+                            }
+                            <div class="row text-center">
+                                <div class="col-md-3">
+                                    <div class="border rounded p-3 bg-@caTrucInfo.Color bg-opacity-10">
+                                        <i class="fas @caTrucInfo.Icon fa-2x text-@caTrucInfo.Color mb-2"></i>
+                                        <h5 class="fw-bold">Ca @Model.CaTruc</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="border rounded p-3">
+                                        <i class="fas fa-play-circle fa-2x text-success mb-2"></i>
+                                        <h5 class="fw-bold">@caTrucInfo.Start</h5>
+                                        <small class="text-muted">Bắt đầu</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="border rounded p-3">
+                                        <i class="fas fa-stop-circle fa-2x text-danger mb-2"></i>
+                                        <h5 class="fw-bold">@caTrucInfo.End</h5>
+                                        <small class="text-muted">Kết thúc</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="border rounded p-3">
+                                        <i class="fas fa-hourglass-half fa-2x text-primary mb-2"></i>
+                                        <h5 class="fw-bold">@caTrucInfo.Duration</h5>
+                                        <small class="text-muted">Thời gian</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .badge {
+            font-size: 0.8em;
+            padding: 0.5em 0.75em;
+        }
+
+        .fs-6 {
+            font-size: 1.1rem !important;
+        }
+    </style>
+}

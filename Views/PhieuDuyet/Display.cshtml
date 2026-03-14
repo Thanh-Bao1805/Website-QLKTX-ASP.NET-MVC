@@ -1,0 +1,115 @@
+﻿@model DoAnCoSo.Models.PhieuDuyet
+@{
+    ViewData["Title"] = "Chi tiết phiếu duyệt";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h2 class="card-title text-primary mb-1">
+                                <i class="fas fa-clipboard-list me-2"></i>@ViewData["Title"]
+                            </h2>
+                            <p class="text-muted mb-0">Thông tin chi tiết phiếu duyệt</p>
+                        </div>
+                        <span class="badge bg-@(Model.TrangThai switch {
+                            "Chờ duyệt" => "warning",
+                            "Đã duyệt" => "success",
+                            "Từ chối" => "danger",
+                            _ => "secondary"
+                        }) fs-6">
+                            <i class="fas fa-@(Model.TrangThai switch {
+                                "Chờ duyệt" => "clock",
+                                "Đã duyệt" => "check-circle",
+                                "Từ chối" => "times-circle",
+                                _ => "circle"
+                            }) me-1"></i>
+                            @Model.TrangThai
+                        </span>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">
+                                        <i class="fas fa-info-circle me-2"></i>Thông tin cơ bản
+                                    </h5>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <p class="text-muted mb-1">Mã phiếu</p>
+                                            <p class="h5">@Model.MaPhieu</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="text-muted mb-1">Ngày duyệt</p>
+                                            <p class="h5">@Model.NgayDuyet.ToString("dd/MM/yyyy")</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">
+                                        <i class="fas fa-user-check me-2"></i>Thông tin duyệt
+                                    </h5>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <p class="text-muted mb-1">Người duyệt</p>
+                                            <p class="h5">@(Model.QuanTriVien?.HoTen ?? "Chưa phân công")</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="text-muted mb-1">Mã đăng ký</p>
+                                            <p class="h5">@Model.MaDK</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <hr class="my-4">
+                            <div class="text-end">
+                                <a asp-action="Index" class="btn btn-outline-secondary me-2">
+                                    <i class="fas fa-arrow-left me-2"></i>Trở về danh sách
+                                </a>
+                                <a asp-action="Update" asp-route-id="@Model.MaPhieu" class="btn btn-warning me-2">
+                                    <i class="fas fa-edit me-2"></i>Chỉnh sửa
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@Model.MaPhieu" class="btn btn-danger">
+                                    <i class="fas fa-trash-alt me-2"></i>Xóa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .badge {
+        padding: 0.6em 1em;
+        border-radius: 6px;
+    }
+
+    .btn {
+        padding: 0.5rem 1.5rem;
+        border-radius: 6px;
+    }
+
+    .card.bg-light {
+        background-color: #f8f9fa !important;
+    }
+</style>

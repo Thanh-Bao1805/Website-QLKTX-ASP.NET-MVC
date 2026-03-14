@@ -1,0 +1,261 @@
+﻿@model IEnumerable<DoAnCoSo.Models.Phong>
+
+@{
+    ViewData["Title"] = "Danh sách phòng";
+}
+
+<div class="container-fluid px-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+            <h5 class="mb-0">@ViewData["Title"]</h5>
+            <a class="btn btn-primary" asp-action="Add">
+                <i class="fas fa-plus me-2"></i>Thêm phòng
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm phòng...">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select id="filterStatus" class="form-select">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="Trống">Trống</option>
+                        <option value="Đang sử dụng">Đang sử dụng</option>
+                        <option value="Bảo trì">Bảo trì</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="filterToa" class="form-select">
+                        <option value="">Tất cả tòa</option>
+                        @if (Model != null && Model.Any())
+                        {
+                            var toas = Model.Select(p => p.Toa?.TenToa).Distinct();
+                            foreach (var toa in toas)
+                            {
+                                if (!string.IsNullOrEmpty(toa))
+                                {
+                                    <option value="@toa">@toa</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="filterType" class="form-select">
+                        <option value="">Tất cả loại phòng</option>
+                        @if (Model != null && Model.Any())
+                        {
+                            var types = Model.Select(p => p.LoaiPhong).Distinct();
+                            foreach (var type in types)
+                            {
+                                if (!string.IsNullOrEmpty(type))
+                                {
+                                    <option value="@type">@type</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="filterGender" class="form-select">
+                        <option value="">Tất cả giới tính</option>
+                        <option value="Nam">Phòng Nam</option>
+                        <option value="Nữ">Phòng Nữ</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row g-4" id="roomContainer">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="col-12 col-md-6 col-lg-4 room-item" 
+                             data-status="@item.TrangThai"
+                             data-toa="@item.Toa?.TenToa"
+                             data-type="@item.LoaiPhong"
+                             data-gender="@item.GioiTinhPhong">
+                            <div class="card h-100 shadow-sm">
+                                <div class="position-relative">
+                                    <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "/images/default-room.jpg" : item.ImageUrl)"
+                                         class="card-img-top"
+                                         style="height: 200px; object-fit: cover;"
+                                         alt="Phòng @item.MaPhong" />
+                                    <div class="position-absolute top-0 start-0 m-2">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-dark bg-opacity-75">
+                                                <i class="fas fa-door-open me-1"></i>
+                                                @item.MaPhong
+                                            </span>
+                                        </h5>
+                                    </div>
+                                    <div class="position-absolute top-0 end-0 m-2">
+                                        <span class="badge @(item.TrangThai == "Trống" ? "bg-success" : 
+                                                           item.TrangThai == "Đang sử dụng" ? "bg-primary" : 
+                                                           "bg-warning")">
+                                            @item.TrangThai
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-building text-primary me-2"></i>
+                                            <span class="fw-medium">@item.Toa?.TenToa</span>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <span class="badge bg-info">@item.LoaiPhong</span>
+                                            <span class="badge bg-secondary">@item.GioiTinhPhong</span>
+                                        </div>
+                                    </div>
+                                    <ul class="list-unstyled mb-3">
+                                        <li class="mb-2">
+                                            <div class="d-flex justify-content-between">
+                                                <div><i class="fas fa-bed text-success me-2"></i>Số giường</div>
+                                                <span class="fw-medium">@item.SoGiuong</span>
+                                            </div>
+                                        </li>
+                                        <li class="mb-2">
+                                            <div class="d-flex justify-content-between">
+                                                <div><i class="fas fa-users text-info me-2"></i>Sinh viên</div>
+                                                <span class="fw-medium">@item.SoSinhVienHienTai/@item.SoSinhVienToiDa</span>
+                                            </div>
+                                        </li>
+                                        <li class="mb-2">
+                                            <div class="d-flex justify-content-between">
+                                                <div><i class="fas fa-money-bill text-success me-2"></i>Giá phòng</div>
+                                                <span class="fw-medium">@item.GiaPhong.ToString("N0") đ/tháng</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex justify-content-between">
+                                                <div><i class="fas fa-hand-holding-usd text-warning me-2"></i>Tiền cọc</div>
+                                                <span class="fw-medium">@item.TienCoc.ToString("N0") đ</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="d-flex gap-2">
+                                        <a asp-action="Display" asp-route-id="@item.MaPhong" 
+                                           class="btn btn-outline-primary flex-fill" data-bs-toggle="tooltip" title="Chi tiết">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a asp-action="Update" asp-route-id="@item.MaPhong" 
+                                           class="btn btn-outline-warning flex-fill" data-bs-toggle="tooltip" title="Sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.MaPhong" 
+                                           class="btn btn-outline-danger flex-fill" data-bs-toggle="tooltip" title="Xóa">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <i class="fas fa-door-open fa-3x text-muted mb-3"></i>
+                            <p class="text-muted mb-0">Không có phòng nào.</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+
+            // Filter function
+            function filterRooms() {
+                var searchText = $("#searchInput").val().toLowerCase();
+                var statusFilter = $("#filterStatus").val();
+                var toaFilter = $("#filterToa").val();
+                var typeFilter = $("#filterType").val();
+                var genderFilter = $("#filterGender").val();
+
+                $(".room-item").each(function() {
+                    var $room = $(this);
+                    var roomText = $room.text().toLowerCase();
+                    var status = $room.data('status');
+                    var toa = $room.data('toa');
+                    var type = $room.data('type');
+                    var gender = $room.data('gender');
+
+                    var matchesSearch = roomText.includes(searchText);
+                    var matchesStatus = !statusFilter || status === statusFilter;
+                    var matchesToa = !toaFilter || toa === toaFilter;
+                    var matchesType = !typeFilter || type === typeFilter;
+                    var matchesGender = !genderFilter || gender === genderFilter;
+
+                    if (matchesSearch && matchesStatus && matchesToa && matchesType && matchesGender) {
+                        $room.show();
+                    } else {
+                        $room.hide();
+                    }
+                });
+
+                // Show/hide empty message
+                var visibleRooms = $(".room-item:visible").length;
+                if (visibleRooms === 0) {
+                    if ($("#emptyMessage").length === 0) {
+                        $("#roomContainer").append(`
+                            <div id="emptyMessage" class="col-12">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                                    <p class="text-muted mb-0">Không tìm thấy phòng nào phù hợp với điều kiện tìm kiếm.</p>
+                                </div>
+                            </div>
+                        `);
+                    }
+                } else {
+                    $("#emptyMessage").remove();
+                }
+            }
+
+            // Bind filter function to events
+            $("#searchInput").on("keyup", filterRooms);
+            $("#filterStatus, #filterToa, #filterType, #filterGender").on("change", filterRooms);
+
+            // Card hover effect
+            $(".card").hover(
+                function() { $(this).addClass("shadow"); },
+                function() { $(this).removeClass("shadow"); }
+            );
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .card {
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .badge {
+            font-size: 0.85rem;
+        }
+        .list-unstyled li {
+            font-size: 0.95rem;
+        }
+    </style>
+}

@@ -1,0 +1,37 @@
+﻿@model DoAnCoSo.Models.NhanVien
+
+@{
+    ViewData["Title"] = "Xóa nhân viên";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning">
+    <strong>Bạn có chắc chắn muốn xóa nhân viên này?</strong>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Mã Nhân Viên</dt>
+            <dd class="col-sm-9">@Model.MaNV</dd>
+
+            <dt class="col-sm-3">Họ Tên</dt>
+            <dd class="col-sm-9">@Model.HoTen</dd>
+
+            <dt class="col-sm-3">Số Điện Thoại</dt>
+            <dd class="col-sm-9">@Model.SDT</dd>
+
+            <dt class="col-sm-3">Chức Vụ</dt>
+            <dd class="col-sm-9">@Model.chucVu?.TenChucVu</dd>
+        </dl>
+
+        <!-- Form xác nhận xóa nhân viên -->
+        <form asp-action="DeleteConfirmed" method="post">
+            <!-- Chuyển mã nhân viên vào dưới dạng một input ẩn -->
+            <input type="hidden" name="id" value="@Model.MaNV" />
+            <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</div>
